@@ -8,20 +8,20 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MRPS", "http://www.freelanc
 		UseIISExpress = "false"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/MRPS"
-		Debug.AspNetCompiler.PhysicalPath = "..\..\..\..\..\IIS_Websites\freelance\MRPS\"
+		Debug.AspNetCompiler.PhysicalPath = "..\MRPS\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\MRPS\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/MRPS"
-		Release.AspNetCompiler.PhysicalPath = "..\..\..\..\..\IIS_Websites\freelance\MRPS\"
+		Release.AspNetCompiler.PhysicalPath = "..\MRPS\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\MRPS\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "..\..\..\..\..\IIS_Websites\freelance\MRPS\"
+		SlnRelativePath = "..\MRPS\"
 	EndProjectSection
 EndProject
 Global
