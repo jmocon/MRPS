@@ -25,3 +25,10 @@ public class JsonId
 
     public int Id { get; set; }
 }
+
+public class DropdownModel
+{
+    public DropdownModel() { }
+    public string Value { get; set; }
+    public string Text { get; set; }
+}

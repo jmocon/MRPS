@@ -5,41 +5,11 @@ $(document).ready(function () {
 
 function InitializeDatatable() {
     var table = $('#dataTable').DataTable({
-        ajax: "Ajax/Purchase_Datatable.aspx",
+        ajax: "Ajax/Produce_Datatable.aspx",
         columns: [
-            { "data": "Item" },
-            { "data": "Type" },
-            { "data": "Price" },
-            { "data": "Supplier" },
-            {
-                "data": "Quantity",
-                "render": function (data, type, row, meta) {
-                    if (data === null) {
-                        return 0;
-                    };
-                    return data;
-                }
-            },
-            { "data": "Unit" },
-            { "data": "DatePurchased" },
-            {
-                "data": "Id",
-                "render": function (data, type, row, meta) {
-                    return `
-                <div class ="btn-group" role="group">
-                    <button type="button" class="btn" onclick= "modalView(`+ data + `)" data-toggle="modal" data-target="#modalView">
-                      <i class="fas fa-eye"></i>
-                    </button>
-                    <button type="button" class="btn" onclick= "modalEdit(`+ data + `)" data-toggle="modal" data-target="#modalEdit">
-                      <i class="fas fa-pencil-alt"></i>
-                    </button>
-                    <button type="button" class="btn" onclick= "modalDelete(`+ data + `)" data-toggle="modal" data-target="#modalDelete">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-                `;
-                }
-            }
+            { "data": "Manu" },
+            { "data": "Quantity" },
+            { "data": "Status" }
         ]
     });
 
@@ -52,15 +22,11 @@ function Add() {
     var u = new Utility();
     u.Loading('#modalAdd_notif');
     var data = {
-        url: "Purchase.aspx?f=add",
+        url: "Produce.aspx?f=add",
         param: {
-            Type: $('#PageBody_sel_Add_Type').val(),
-            Item_Id: $('#PageBody_sel_Add_Item').val(),
-            DatePurchased: $('#txt_Add_DatePurchased').val(),
-            Supplier_Id: $('#PageBody_sel_Add_Supplier').val(),
-            Price: $('#txt_Add_Price').val(),
+            Menu_Id: $('#PageBody_sel_Add_Menu').val(),
             Quantity: $('#txt_Add_Quantity').val(),
-            Unit_Id: $('#PageBody_sel_Add_Unit').val()
+            Status: $('#PageBody_sel_Add_Status').val()
         }
     }
 
@@ -74,14 +40,9 @@ function Add() {
               $('#modalAdd_notif').html(u.AlertBox(alert));
               var table = $('#dataTable').DataTable();
               table.ajax.reload(null, false);
-
-              $('#PageBody_sel_Add_Type').val($('#PageBody_sel_Add_Type option:first').val());
-              $('#PageBody_sel_Add_Item').val($('#PageBody_sel_Add_Item option:first').val());
-              $('#txt_Add_DatePurchased').val("");
-              $('#PageBody_sel_Add_Supplier').val($('#PageBody_sel_Add_Supplier option:first').val());
-              $('#txt_Add_Price').val("");
+              $('#PageBody_sel_Add_Menu').val($('#PageBody_sel_Add_Menu option:first').val());
               $('#txt_Add_Quantity').val("");
-              $('#PageBody_sel_Add_Unit').val($('#PageBody_sel_Add_Unit option:first').val());
+              $('#PageBody_sel_Add_Status').val($('#PageBody_sel_Add_Status option:first').val());
           } else {
               var alert = {
                   type: "danger",
@@ -99,7 +60,7 @@ function modalView(id) {
     var u = new Utility();
     u.Loading('#modalView_notif');
     var data = {
-        url: "Purchase.aspx?f=view",
+        url: "Item.aspx?f=view",
         param: {
             Id: id
         }
@@ -108,13 +69,12 @@ function modalView(id) {
     u.SendData(data)
       .done(function (r) {
           if (r.Success) {
-              $('#txt_View_Type').html(r.Model.Type);
-              $('#txt_View_Item').html(r.Model.Item);
-              $('#txt_View_DatePurchased').html(r.Model.DatePurchased);
-              $('#txt_View_Supplier').html(r.Model.Supplier);
-              $('#txt_View_Price').html(r.Model.Price);
+              $('#txt_View_Menu').html(r.Model.Menu);
               $('#txt_View_Quantity').html(r.Model.Quantity);
+              $('#txt_View_Status').html(r.Model.Status);
               $('#txt_View_Unit').html(r.Model.Unit);
+              $('#txt_View_Quantity').html(r.Model.Quantity);
+              $('#txt_View_DateCreated').html(r.Model.DateCreated);
           } else {
               var alert = {
                   type: "danger",
@@ -132,7 +92,7 @@ function modalEdit(id) {
     var u = new Utility();
     u.Loading('#modalEdit_notif');
     var data = {
-        url: "Purchase.aspx?f=getbyid",
+        url: "Item.aspx?f=getbyid",
         param: {
             Id: id
         }
@@ -141,12 +101,9 @@ function modalEdit(id) {
     u.SendData(data)
       .done(function (r) {
           if (r.Success) {
-              $('#PageBody_sel_Edit_Type').val(r.Model.Type);
-              $('#PageBody_sel_Edit_Item').val(r.Model.Item_Id);
-              $('#txt_Edit_DatePurchased').val(r.Model.DatePurchased_S);
-              $('#PageBody_sel_Edit_Supplier').val(r.Model.Supplier_Id);
-              $('#txt_Edit_Price').val(r.Model.Price);
+              $('#txt_Edit_Menu').val(r.Model.Menu);
               $('#txt_Edit_Quantity').val(r.Model.Quantity);
+              $('#PageBody_sel_Edit_Status').val(r.Model.Status);
               $('#PageBody_sel_Edit_Unit').val(r.Model.Unit_Id);
               $("#btn_Edit").attr("onclick", "Edit(" + r.Model.Id + ")");
           } else {
@@ -166,15 +123,12 @@ function Edit(id) {
     var u = new Utility();
     u.Loading('#modalEdit_notif');
     var data = {
-        url: "Purchase.aspx?f=editSave",
+        url: "Item.aspx?f=editSave",
         param: {
             Id: id,
-            Type: $('#PageBody_sel_Edit_Type').val(),
-            Item_Id: $('#PageBody_sel_Edit_Item').val(),
-            DatePurchased: $('#txt_Edit_DatePurchased').val(),
-            Supplier_Id: $('#PageBody_sel_Edit_Supplier').val(),
-            Price: $('#txt_Edit_Price').val(),
+            Menu: $('#txt_Edit_Menu').val(),
             Quantity: $('#txt_Edit_Quantity').val(),
+            Status: $('#PageBody_sel_Edit_Status').val(),
             Unit_Id: $('#PageBody_sel_Edit_Unit').val()
         }
     }
@@ -206,7 +160,7 @@ function modalDelete(id) {
     var u = new Utility();
     u.Loading('#modalDelete_notif');
     var data = {
-        url: "Purchase.aspx?f=view",
+        url: "Item.aspx?f=view",
         param: {
             Id: id
         }
@@ -215,14 +169,12 @@ function modalDelete(id) {
     u.SendData(data)
       .done(function (r) {
           if (r.Success) {
-              $('#txt_Delete_Type').html(r.Model.Type);
-              $('#txt_Delete_Item').html(r.Model.Item);
-              $('#txt_Delete_DatePurchased').html(r.Model.DatePurchased);
-              $('#txt_Delete_Supplier').html(r.Model.Supplier);
-              $('#txt_Delete_Price').html(r.Model.Price);
+              $('#txt_Delete_Menu').html(r.Model.Menu);
               $('#txt_Delete_Quantity').html(r.Model.Quantity);
+              $('#txt_Delete_Status').html(r.Model.Status);
               $('#txt_Delete_Unit').html(r.Model.Unit);
-
+              $('#txt_Delete_Quantity').html(r.Model.Quantity);
+              $('#txt_Delete_DateCreated').html(r.Model.DateCreated);
               $("#btn_Delete").attr("onclick", "Delete(" + r.Model.Id + ")");
           } else {
               var alert = {
@@ -238,10 +190,11 @@ function modalDelete(id) {
 }
 
 function Delete(id) {
+
     var u = new Utility();
     u.Loading('#modalDelete_notif');
     var data = {
-        url: "Purchase.aspx?f=delete",
+        url: "Item.aspx?f=delete",
         param: {
             Id: id
         }

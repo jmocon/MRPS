@@ -78,19 +78,33 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-6">
+            <div class="col-4">
               <label>Type</label>
               <asp:DropDownList ID="sel_Add_Type" class="form-control" runat="server"></asp:DropDownList>
             </div>
-            <div class="col-6">
+            <div class="col-4">
               <label>Item</label>
               <asp:DropDownList ID="sel_Add_Item" class="form-control" runat="server"></asp:DropDownList>
+            </div>
+            <div class="col-4">
+              <label>Date Purchased</label>
+              <input type="date" class="form-control" id="txt_Add_DatePurchased">
             </div>
           </div>
           <div class="row mb-2">
             <div class="col-6">
-              <label>Category</label>
-              <input type="text" class="form-control" id="txt_Add_Name" placeholder="Name">
+              <label>Supplier</label>
+              <asp:DropDownList ID="sel_Add_Supplier" class="form-control" runat="server"></asp:DropDownList>
+            </div>
+            <div class="col-6">
+              <label>Price</label>
+              <input type="number" class="form-control" id="txt_Add_Price" placeholder="Price">
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-6">
+              <label>Quantity</label>
+              <input type="number" min="1" class="form-control" id="txt_Add_Quantity" placeholder="Quantity">
             </div>
             <div class="col-6">
               <label>Unit</label>
@@ -111,7 +125,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Item Details</h5>
+          <h5 class="modal-title">Purchase Details</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -122,33 +136,37 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-6">
-              <label>Name</label>
-              <div class="form-control" id="txt_View_Name">Name</div>
+            <div class="col-4">
+              <label>Type</label>
+              <div id="txt_View_Type" class="form-control"></div>
             </div>
-            <div class="col-6">
-              <label>Price</label>
-              <div class="form-control" id="txt_View_Price">Price</div>
+            <div class="col-4">
+              <label>Item</label>
+              <div id="txt_View_Item" class="form-control"></div>
+            </div>
+            <div class="col-4">
+              <label>Date Purchased</label>
+              <div id="txt_View_DatePurchased" class="form-control"></div>
             </div>
           </div>
           <div class="row mb-2">
             <div class="col-6">
-              <label>Category</label>
-              <div class="form-control" id="txt_View_Category">Category</div>
+              <label>Supplier</label>
+              <div id="txt_View_Supplier" class="form-control"></div>
             </div>
             <div class="col-6">
-              <label>Unit</label>
-              <div class="form-control" id="txt_View_Unit">Unit</div>
+              <label>Price</label>
+              <div id="txt_View_Price" class="form-control"></div>
             </div>
           </div>
           <div class="row mb-2">
             <div class="col-6">
               <label>Quantity</label>
-              <div class="form-control" id="txt_View_Quantity">Quantity</div>
+              <div id="txt_View_Quantity" class="form-control"></div>
             </div>
             <div class="col-6">
-              <label>Date Created</label>
-              <div class="form-control" style="overflow-y: auto;" id="txt_View_DateCreated">DateCreated</div>
+              <label>Unit</label>
+              <div id="txt_View_Unit" class="form-control"></div>
             </div>
           </div>
         </div>
@@ -175,9 +193,23 @@
             </div>
           </div>
           <div class="row mb-2">
+            <div class="col-4">
+              <label>Type</label>
+              <asp:DropDownList ID="sel_Edit_Type" class="form-control" runat="server"></asp:DropDownList>
+            </div>
+            <div class="col-4">
+              <label>Item</label>
+              <asp:DropDownList ID="sel_Edit_Item" class="form-control" runat="server"></asp:DropDownList>
+            </div>
+            <div class="col-4">
+              <label>Date Purchased</label>
+              <input type="date" class="form-control" id="txt_Edit_DatePurchased">
+            </div>
+          </div>
+          <div class="row mb-2">
             <div class="col-6">
-              <label>Name</label>
-              <input type="text" class="form-control" id="txt_Edit_Name" placeholder="Name">
+              <label>Supplier</label>
+              <asp:DropDownList ID="sel_Edit_Supplier" class="form-control" runat="server"></asp:DropDownList>
             </div>
             <div class="col-6">
               <label>Price</label>
@@ -186,8 +218,8 @@
           </div>
           <div class="row mb-2">
             <div class="col-6">
-              <label>Category</label>
-              <asp:DropDownList ID="sel_Edit_Category" class="form-control" runat="server"></asp:DropDownList>
+              <label>Quantity</label>
+              <input type="number" min="1" class="form-control" id="txt_Edit_Quantity" placeholder="Quantity">
             </div>
             <div class="col-6">
               <label>Unit</label>
@@ -225,33 +257,37 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-6">
-              <label>Name</label>
-              <div class="form-control" id="txt_Delete_Name">Name</div>
+            <div class="col-4">
+              <label>Type</label>
+              <div id="txt_Delete_Type" class="form-control"></div>
             </div>
-            <div class="col-6">
-              <label>Price</label>
-              <div class="form-control" id="txt_Delete_Price">Price</div>
+            <div class="col-4">
+              <label>Item</label>
+              <div id="txt_Delete_Item" class="form-control"></div>
+            </div>
+            <div class="col-4">
+              <label>Date Purchased</label>
+              <div id="txt_Delete_DatePurchased" class="form-control"></div>
             </div>
           </div>
           <div class="row mb-2">
             <div class="col-6">
-              <label>Category</label>
-              <div class="form-control" id="txt_Delete_Category">Category</div>
+              <label>Supplier</label>
+              <div id="txt_Delete_Supplier" class="form-control"></div>
             </div>
             <div class="col-6">
-              <label>Unit</label>
-              <div class="form-control" id="txt_Delete_Unit">Unit</div>
+              <label>Price</label>
+              <div id="txt_Delete_Price" class="form-control"></div>
             </div>
           </div>
           <div class="row mb-2">
             <div class="col-6">
               <label>Quantity</label>
-              <div class="form-control" id="txt_Delete_Quantity">Quantity</div>
+              <div id="txt_Delete_Quantity" class="form-control"></div>
             </div>
             <div class="col-6">
-              <label>Date Created</label>
-              <div class="form-control" style="overflow-y: auto;" id="txt_Delete_DateCreated">DateCreated</div>
+              <label>Unit</label>
+              <div id="txt_Delete_Unit" class="form-control"></div>
             </div>
           </div>
         </div>

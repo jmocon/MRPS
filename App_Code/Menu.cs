@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
-/// <summary>
-/// Summary description for Item
-/// </summary>
-public class Item
+public class Menus
 {
-    public Item()
+    public Menus()
     {
     }
 
-    public ItemModel Add(ItemModel mdl)
+    public MenuModel Add(MenuModel mdl)
     {
         Database db = new Database();
 
@@ -20,16 +16,15 @@ public class Item
         {
             new SqlParameter("@Name",mdl.Name),
             new SqlParameter("@Price",mdl.Price),
-            new SqlParameter("@Category_Id",mdl.Category_Id),
-            new SqlParameter("@Unit_Id",mdl.Unit_Id)
+            new SqlParameter("@Description",mdl.Description)
         };
 
-        mdl.Id = int.Parse(db.ExecuteScalar(lst, "Item_Add"));
+        mdl.Id = int.Parse(db.ExecuteScalar(lst, "Menu_Add"));
 
         return mdl;
     }
 
-    public int Edit(ItemModel mdl)
+    public int Edit(MenuModel mdl)
     {
         Database db = new Database();
 
@@ -38,11 +33,10 @@ public class Item
             new SqlParameter("@Id",mdl.Id),
             new SqlParameter("@Name",mdl.Name),
             new SqlParameter("@Price",mdl.Price),
-            new SqlParameter("@Category_Id",mdl.Category_Id),
-            new SqlParameter("@Unit_Id",mdl.Unit_Id)
+            new SqlParameter("@Description",mdl.Description)
         };
 
-        return int.Parse(db.ExecuteScalar(lst, "Item_Edit"));
+        return int.Parse(db.ExecuteScalar(lst, "Menu_Edit"));
     }
 
     public bool IsNameExist(string value)
@@ -54,7 +48,7 @@ public class Item
             new SqlParameter("@Name",value)
         };
 
-        int count = int.Parse(db.ExecuteScalar(lst, "Item_CountByName"));
+        int count = int.Parse(db.ExecuteScalar(lst, "Menu_CountByName"));
         if (count > 0)
         {
             return true;
@@ -72,7 +66,7 @@ public class Item
             new SqlParameter("@Name",name)
         };
 
-        int count = int.Parse(db.ExecuteScalar(lst, "Item_CountByNameNotId"));
+        int count = int.Parse(db.ExecuteScalar(lst, "Menu_CountByNameNotId"));
         if (count > 0)
         {
             return true;
@@ -80,7 +74,7 @@ public class Item
         return false;
     }
 
-    public ItemModel GetById(int id)
+    public MenuModel GetById(int id)
     {
         Database db = new Database();
 
@@ -89,22 +83,21 @@ public class Item
             new SqlParameter("@Id",id)
         };
 
-        DataTable dt = db.ExecuteReader(lst, "Item_GetById");
+        DataTable dt = db.ExecuteReader(lst, "Menu_GetById");
         DataRow dr = dt.Rows[0];
 
-        ItemModel mdl = new ItemModel
+        MenuModel mdl = new MenuModel
         {
             Id = int.Parse(dr["Id"].ToString()),
             Name = dr["Name"].ToString(),
             Price = decimal.Parse(dr["Price"].ToString()),
-            Category_Id = int.Parse(dr["Category_Id"].ToString()),
-            Unit_Id = int.Parse(dr["Unit_Id"].ToString())
+            Description = dr["Description"].ToString()
         };
 
         return mdl;
     }
 
-    public ItemViewModel GetViewById(int id)
+    public MenuModel GetViewById(int id)
     {
         Database db = new Database();
 
@@ -113,18 +106,15 @@ public class Item
             new SqlParameter("@Id",id)
         };
 
-        DataTable dt = db.ExecuteReader(lst, "Item_GetViewById");
+        DataTable dt = db.ExecuteReader(lst, "Menu_GetViewById");
         DataRow dr = dt.Rows[0];
 
-        ItemViewModel mdl = new ItemViewModel
+        MenuModel mdl = new MenuModel
         {
             Id = int.Parse(dr["Id"].ToString()),
             Name = dr["Name"].ToString(),
             Price = decimal.Parse(dr["Price"].ToString()),
-            Category = dr["Category"].ToString(),
-            Quantity = decimal.Parse(dr["Quantity"].ToString()),
-            Unit = dr["Unit"].ToString(),
-            DateCreated = Convert.ToDateTime(dr["DateCreated"].ToString()).ToString("MMMM d, yyyy hh:mm tt")
+            Description = dr["Description"].ToString(),
         };
 
         return mdl;
@@ -134,56 +124,36 @@ public class Item
     {
         Database db = new Database();
         List<SqlParameter> lst = new List<SqlParameter>();
-        return db.ExecuteReader(lst, "Item_GetForDatatable");
+        return db.ExecuteReader(lst, "Menu_GetForDatatable");
     }
 
     public DataTable GetForDropdown()
     {
         Database db = new Database();
         List<SqlParameter> lst = new List<SqlParameter>();
-        return db.ExecuteReader(lst, "Item_GetForDropdown");
+        return db.ExecuteReader(lst, "Menu_GetForDropdown");
     }
 
     public int Delete(int id)
     {
         Database db = new Database();
-
         List<SqlParameter> lst = new List<SqlParameter>
         {
             new SqlParameter("@Id",id)
         };
-
-        return int.Parse(db.ExecuteScalar(lst, "Item_Delete"));
+        return int.Parse(db.ExecuteScalar(lst, "Menu_Delete"));
     }
 }
 
-public class ItemModel
+public class MenuModel
 {
-    public ItemModel()
+    public MenuModel()
     {
     }
 
     public int Id { get; set; }
     public string Name { get; set; }
     public decimal Price { get; set; }
-    public int Category_Id { get; set; }
-    public int Unit_Id { get; set; }
-    public DateTime X_DateCreated { get; set; }
-    public bool X_Archived { get; set; }
+    public string Description { get; set; }
     public bool X_Deleted { get; set; }
-}
-
-public class ItemViewModel
-{
-    public ItemViewModel()
-    {
-    }
-
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public decimal Price { get; set; }
-    public string Category { get; set; }
-    public decimal Quantity { get; set; }
-    public string Unit { get; set; }
-    public string DateCreated { get; set; }
 }

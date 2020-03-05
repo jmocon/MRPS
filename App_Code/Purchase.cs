@@ -18,10 +18,13 @@ public class Purchase
 
         List<SqlParameter> lst = new List<SqlParameter>
         {
-            new SqlParameter("@Name",mdl.Name),
+            new SqlParameter("@Item_Id",mdl.Item_Id),
+            new SqlParameter("@Type",mdl.Type),
             new SqlParameter("@Price",mdl.Price),
-            new SqlParameter("@Category_Id",mdl.Category_Id),
-            new SqlParameter("@Unit_Id",mdl.Unit_Id)
+            new SqlParameter("@Supplier_Id",mdl.Supplier_Id),
+            new SqlParameter("@Quantity",mdl.Quantity),
+            new SqlParameter("@Unit_Id",mdl.Unit_Id),
+            new SqlParameter("@DatePurchased",mdl.DatePurchased)
         };
 
         mdl.Id = int.Parse(db.ExecuteScalar(lst, "Purchase_Add"));
@@ -36,48 +39,16 @@ public class Purchase
         List<SqlParameter> lst = new List<SqlParameter>
         {
             new SqlParameter("@Id",mdl.Id),
-            new SqlParameter("@Name",mdl.Name),
+            new SqlParameter("@Item_Id",mdl.Item_Id),
+            new SqlParameter("@Type",mdl.Type),
             new SqlParameter("@Price",mdl.Price),
-            new SqlParameter("@Category_Id",mdl.Category_Id),
-            new SqlParameter("@Unit_Id",mdl.Unit_Id)
+            new SqlParameter("@Supplier_Id",mdl.Supplier_Id),
+            new SqlParameter("@Quantity",mdl.Quantity),
+            new SqlParameter("@Unit_Id",mdl.Unit_Id),
+            new SqlParameter("@DatePurchased",mdl.DatePurchased)
         };
 
         return int.Parse(db.ExecuteScalar(lst, "Purchase_Edit"));
-    }
-
-    public bool IsNameExist(string value)
-    {
-        Database db = new Database();
-
-        List<SqlParameter> lst = new List<SqlParameter>
-        {
-            new SqlParameter("@Name",value)
-        };
-
-        int count = int.Parse(db.ExecuteScalar(lst, "Purchase_CountByName"));
-        if (count > 0)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    public bool IsNameExist(int id, string name)
-    {
-        Database db = new Database();
-
-        List<SqlParameter> lst = new List<SqlParameter>
-        {
-            new SqlParameter("@Id",id),
-            new SqlParameter("@Name",name)
-        };
-
-        int count = int.Parse(db.ExecuteScalar(lst, "Purchase_CountByNameNotId"));
-        if (count > 0)
-        {
-            return true;
-        }
-        return false;
     }
 
     public PurchaseModel GetById(int id)
@@ -95,10 +66,13 @@ public class Purchase
         PurchaseModel mdl = new PurchaseModel
         {
             Id = int.Parse(dr["Id"].ToString()),
-            Name = dr["Name"].ToString(),
+            Item_Id = int.Parse(dr["Item_Id"].ToString()),
+            Type = int.Parse(dr["Type"].ToString()),
             Price = decimal.Parse(dr["Price"].ToString()),
-            Category_Id = int.Parse(dr["Category_Id"].ToString()),
-            Unit_Id = int.Parse(dr["Unit_Id"].ToString())
+            Supplier_Id = int.Parse(dr["Supplier_Id"].ToString()),
+            Quantity = decimal.Parse(dr["Quantity"].ToString()),
+            Unit_Id = int.Parse(dr["Unit_Id"].ToString()),
+            DatePurchased_S = Convert.ToDateTime(dr["DatePurchased"].ToString()).ToString("yyyy-MM-dd")
         };
 
         return mdl;
@@ -119,12 +93,13 @@ public class Purchase
         PurchaseViewModel mdl = new PurchaseViewModel
         {
             Id = int.Parse(dr["Id"].ToString()),
-            Name = dr["Name"].ToString(),
+            Item = dr["Item"].ToString(),
+            Type = dr["Type"].ToString(),
             Price = decimal.Parse(dr["Price"].ToString()),
-            Category = dr["Category"].ToString(),
+            Supplier = dr["Supplier"].ToString(),
             Quantity = decimal.Parse(dr["Quantity"].ToString()),
             Unit = dr["Unit"].ToString(),
-            DateCreated = Convert.ToDateTime(dr["DateCreated"].ToString()).ToString("MMMM d, yyyy hh:mm tt")
+            DatePurchased = Convert.ToDateTime(dr["DatePurchased"].ToString()).ToString("MMMM d, yyyy hh:mm tt")
         };
 
         return mdl;
@@ -157,13 +132,16 @@ public class PurchaseModel
     }
 
     public int Id { get; set; }
-    public string Name { get; set; }
+    public int Item_Id { get; set; }
+    public int Type { get; set; }
     public decimal Price { get; set; }
-    public int Category_Id { get; set; }
+    public int Supplier_Id { get; set; }
+    public decimal Quantity { get; set; }
     public int Unit_Id { get; set; }
+    public DateTime DatePurchased { get; set; }
+    public string DatePurchased_S { get; set; }
     public DateTime X_DateCreated { get; set; }
-    public bool X_Archived { get; set; }
-    public bool X_Deleted { get; set; }
+    public int X_User_Id { get; set; }
 }
 
 public class PurchaseViewModel
@@ -173,10 +151,12 @@ public class PurchaseViewModel
     }
 
     public int Id { get; set; }
-    public string Name { get; set; }
+    public string Item { get; set; }
+    public string Type { get; set; }
     public decimal Price { get; set; }
-    public string Category { get; set; }
+    public string Supplier { get; set; }
     public decimal Quantity { get; set; }
     public string Unit { get; set; }
+    public string DatePurchased { get; set; }
     public string DateCreated { get; set; }
 }

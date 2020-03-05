@@ -17,4 +17,11 @@ public class Unit
         List<SqlParameter> lst = new List<SqlParameter>();
         return db.ExecuteReader(lst, "Unit_Get");
     }
+
+    public DataTable GetForDropdown()
+    {
+        Database db = new Database();
+        List<SqlParameter> lst = new List<SqlParameter>();
+        return db.ExecuteReader(lst, "Unit_GetForDropdown");
+    }
 }

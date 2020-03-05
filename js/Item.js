@@ -43,12 +43,7 @@ function InitializeDatatable() {
                 `;
                 }
             }
-        ],
-        columnDefs: [{
-            "targets": -1,
-            "data": "Id",
-            "defaultContent": "<button>Click!</button>"
-        }]
+        ]
     });
 
     setInterval(function () {
@@ -81,7 +76,7 @@ function Add() {
               table.ajax.reload(null, false);
               $('#txt_Add_Name').val("");
               $('#txt_Add_Price').val("");
-              $('#PageBody_sel_Add_Category').val($('#PageBody_sel_Add_Unit option:first').val());
+              $('#PageBody_sel_Add_Category').val($('#PageBody_sel_Add_Category option:first').val());
               $('#PageBody_sel_Add_Unit').val($('#PageBody_sel_Add_Unit option:first').val());
           } else {
               var alert = {
