@@ -7,9 +7,27 @@ function InitializeDatatable() {
     var table = $('#dataTable').DataTable({
         ajax: "Ajax/Produce_Datatable.aspx",
         columns: [
-            { "data": "Manu" },
+            { "data": "Menu" },
             { "data": "Quantity" },
-            { "data": "Status" }
+            { "data": "Status" },
+            {
+                "data": "Id",
+                "render": function (data, type, row, meta) {
+                    return `
+                <div class ="btn-group" role="group">
+                    <button type="button" class="btn" onclick= "modalView(`+ data + `)" data-toggle="modal" data-target="#modalView">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                    <button type="button" class="btn" onclick= "modalEdit(`+ data + `)" data-toggle="modal" data-target="#modalEdit">
+                      <i class="fas fa-pencil-alt"></i>
+                    </button>
+                    <button type="button" class="btn" onclick= "modalDelete(`+ data + `)" data-toggle="modal" data-target="#modalDelete">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                `;
+                }
+            }
         ]
     });
 
@@ -60,7 +78,7 @@ function modalView(id) {
     var u = new Utility();
     u.Loading('#modalView_notif');
     var data = {
-        url: "Item.aspx?f=view",
+        url: "Produce.aspx?f=view",
         param: {
             Id: id
         }
@@ -72,9 +90,6 @@ function modalView(id) {
               $('#txt_View_Menu').html(r.Model.Menu);
               $('#txt_View_Quantity').html(r.Model.Quantity);
               $('#txt_View_Status').html(r.Model.Status);
-              $('#txt_View_Unit').html(r.Model.Unit);
-              $('#txt_View_Quantity').html(r.Model.Quantity);
-              $('#txt_View_DateCreated').html(r.Model.DateCreated);
           } else {
               var alert = {
                   type: "danger",
@@ -92,7 +107,7 @@ function modalEdit(id) {
     var u = new Utility();
     u.Loading('#modalEdit_notif');
     var data = {
-        url: "Item.aspx?f=getbyid",
+        url: "Produce.aspx?f=getbyid",
         param: {
             Id: id
         }
@@ -101,10 +116,9 @@ function modalEdit(id) {
     u.SendData(data)
       .done(function (r) {
           if (r.Success) {
-              $('#txt_Edit_Menu').val(r.Model.Menu);
+              $('#PageBody_sel_Edit_Menu').val(r.Model.Menu_Id);
               $('#txt_Edit_Quantity').val(r.Model.Quantity);
               $('#PageBody_sel_Edit_Status').val(r.Model.Status);
-              $('#PageBody_sel_Edit_Unit').val(r.Model.Unit_Id);
               $("#btn_Edit").attr("onclick", "Edit(" + r.Model.Id + ")");
           } else {
               var alert = {
@@ -123,13 +137,12 @@ function Edit(id) {
     var u = new Utility();
     u.Loading('#modalEdit_notif');
     var data = {
-        url: "Item.aspx?f=editSave",
+        url: "Produce.aspx?f=editSave",
         param: {
             Id: id,
-            Menu: $('#txt_Edit_Menu').val(),
+            Menu_Id: $('#PageBody_sel_Edit_Menu').val(),
             Quantity: $('#txt_Edit_Quantity').val(),
-            Status: $('#PageBody_sel_Edit_Status').val(),
-            Unit_Id: $('#PageBody_sel_Edit_Unit').val()
+            Status: $('#PageBody_sel_Edit_Status').val()
         }
     }
 
@@ -160,7 +173,7 @@ function modalDelete(id) {
     var u = new Utility();
     u.Loading('#modalDelete_notif');
     var data = {
-        url: "Item.aspx?f=view",
+        url: "Produce.aspx?f=view",
         param: {
             Id: id
         }
@@ -172,9 +185,6 @@ function modalDelete(id) {
               $('#txt_Delete_Menu').html(r.Model.Menu);
               $('#txt_Delete_Quantity').html(r.Model.Quantity);
               $('#txt_Delete_Status').html(r.Model.Status);
-              $('#txt_Delete_Unit').html(r.Model.Unit);
-              $('#txt_Delete_Quantity').html(r.Model.Quantity);
-              $('#txt_Delete_DateCreated').html(r.Model.DateCreated);
               $("#btn_Delete").attr("onclick", "Delete(" + r.Model.Id + ")");
           } else {
               var alert = {
@@ -194,7 +204,7 @@ function Delete(id) {
     var u = new Utility();
     u.Loading('#modalDelete_notif');
     var data = {
-        url: "Item.aspx?f=delete",
+        url: "Produce.aspx?f=delete",
         param: {
             Id: id
         }

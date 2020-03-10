@@ -8,14 +8,13 @@
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <div>
-  <h1 class="h3 mb-2 text-gray-800">Purchase List</h1>
-  <p class="mb-4">This page shows the list of all the transactions of items.</p>
+      <h1 class="h3 mb-2 text-gray-800">Produce List</h1>
+      <p class="mb-4">This page shows the list of all the transactions of items.</p>
     </div>
     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#modalAdd">
       <i class="fas fa-plus fa-sm text-white-50 mr-1"></i>Add new Item
     </button>
   </div>
-
 
   <div class="card shadow mb-4">
     <div class="card-body">
@@ -26,7 +25,6 @@
               <th>Menu</th>
               <th>Quantity</th>
               <th>Status</th>
-              <th>Date/Time</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -35,13 +33,11 @@
               <th>Menu</th>
               <th>Quantity</th>
               <th>Status</th>
-              <th>Date/Time</th>
               <th>Action</th>
             </tr>
           </tfoot>
           <tbody>
             <tr>
-              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -53,7 +49,6 @@
     </div>
   </div>
 
-  
   <!-- Add Modal -->
   <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -70,11 +65,13 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-4">
+            <div class="col-12">
               <label>Menu</label>
               <asp:DropDownList ID="sel_Add_Menu" class="form-control" runat="server"></asp:DropDownList>
             </div>
-            <div class="col-4">
+          </div>
+          <div class="row mb-2">
+            <div class="col-6">
               <label>Quantity</label>
               <input type="number" id="txt_Add_Quantity" class="form-control" placeholder="Quantity">
             </div>
@@ -97,7 +94,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Item Details</h5>
+          <h5 class="modal-title">Menu Details</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -108,17 +105,19 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-4">
+            <div class="col-12">
               <label>Menu</label>
-              <asp:DropDownList ID="sel_View_Menu" class="form-control" runat="server"></asp:DropDownList>
+              <div id="txt_View_Menu" class="form-control"></div>
             </div>
-            <div class="col-4">
+          </div>
+          <div class="row">
+            <div class="col-6">
               <label>Quantity</label>
-              <input type="number" id="txt_View_Quantity" class="form-control" placeholder="Quantity">
+              <div id="txt_View_Quantity" class="form-control"></div>
             </div>
             <div class="col-6">
               <label>Status</label>
-              <asp:DropDownList ID="sel_View_Status" class="form-control" runat="server"></asp:DropDownList>
+              <div id="txt_View_Status" class="form-control"></div>
             </div>
           </div>
         </div>
@@ -145,11 +144,13 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-4">
+            <div class="col-12">
               <label>Menu</label>
               <asp:DropDownList ID="sel_Edit_Menu" class="form-control" runat="server"></asp:DropDownList>
             </div>
-            <div class="col-4">
+          </div>
+          <div class="row mb-2">
+            <div class="col-6">
               <label>Quantity</label>
               <input type="number" id="txt_Edit_Quantity" class="form-control" placeholder="Quantity">
             </div>
@@ -189,17 +190,19 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-4">
+            <div class="col-12">
               <label>Menu</label>
-              <asp:DropDownList ID="sel_Delete_Menu" class="form-control" runat="server"></asp:DropDownList>
+              <div id="txt_Delete_Menu" class="form-control"></div>
             </div>
-            <div class="col-4">
+          </div>
+          <div class="row mb-2">
+            <div class="col-6">
               <label>Quantity</label>
-              <input type="number" id="txt_Delete_Quantity" class="form-control" placeholder="Quantity">
+              <div id="txt_Delete_Quantity" class="form-control"></div>
             </div>
             <div class="col-6">
               <label>Status</label>
-              <asp:DropDownList ID="sel_Delete_Status" class="form-control" runat="server"></asp:DropDownList>
+              <div id="txt_Delete_Status" class="form-control"></div>
             </div>
           </div>
         </div>

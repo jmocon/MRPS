@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
-/// <summary>
-/// Summary description for Item
-/// </summary>
 public class Item
 {
     public Item()

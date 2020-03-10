@@ -9,6 +9,44 @@ public partial class Produce : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        PopulateMenu();
+        PopulateStatus();
     }
+
+    private void PopulateMenu()
+    {
+        Menus cls = new Menus();
+
+        sel_Add_Menu.DataSource = cls.GetForDropdown();
+        sel_Add_Menu.DataValueField = "Id";
+        sel_Add_Menu.DataTextField = "Name";
+        sel_Add_Menu.DataBind();
+
+        sel_Edit_Menu.DataSource = cls.GetForDropdown();
+        sel_Edit_Menu.DataValueField = "Id";
+        sel_Edit_Menu.DataTextField = "Name";
+        sel_Edit_Menu.DataBind();
+    }
+
+    private void PopulateStatus()
+    {
+        List<DropdownModel> lst = new List<DropdownModel>
+        {
+            new DropdownModel {Value = "0", Text = "Pending"},
+            new DropdownModel {Value = "1", Text = "Cooking"},
+            new DropdownModel {Value = "2", Text = "Preparing"},
+            new DropdownModel {Value = "3", Text = "Done"},
+        };
+
+        sel_Add_Status.DataSource = lst;
+        sel_Add_Status.DataValueField = "Value";
+        sel_Add_Status.DataTextField = "Text";
+        sel_Add_Status.DataBind();
+
+        sel_Edit_Status.DataSource = lst;
+        sel_Edit_Status.DataValueField = "Value";
+        sel_Edit_Status.DataTextField = "Text";
+        sel_Edit_Status.DataBind();
+    }
+
 }
