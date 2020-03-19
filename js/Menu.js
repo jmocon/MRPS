@@ -43,6 +43,7 @@ function ClearAddModal() {
     $('#modalAdd_notif').html("");
     $('#txt_Add_Name').val("");
     $('#txt_Add_Price').val("");
+    $('#txt_Add_Timer').val("");
     $('#txt_Add_Description').val("");
 }
 
@@ -54,6 +55,7 @@ function Add() {
         param: {
             Name: $('#txt_Add_Name').val(),
             Price: $('#txt_Add_Price').val(),
+            Timer: $('#txt_Add_Timer').val(),
             Description: $('#txt_Add_Description').val()
         }
     }
@@ -97,6 +99,7 @@ function modalView(id) {
           if (r.Success) {
               $('#txt_View_Name').html(r.Model.Name);
               $('#txt_View_Price').html(r.Model.Price);
+              $('#txt_View_Timer').html(r.Model.Timer + " min/s");
               $('#txt_View_Description').html(r.Model.Description);
               $("#btn_View").attr("href", "MenuItem.aspx?id=" + id);
           } else {
@@ -127,6 +130,7 @@ function modalEdit(id) {
           if (r.Success) {
               $('#txt_Edit_Name').val(r.Model.Name);
               $('#txt_Edit_Price').val(r.Model.Price);
+              $('#txt_Edit_Timer').val(r.Model.Timer);
               $('#txt_Edit_Description').val(r.Model.Description);
               $("#btn_Edit").attr("onclick", "Edit(" + r.Model.Id + ")");
           } else {
@@ -151,6 +155,7 @@ function Edit(id) {
             Id: id,
             Name: $('#txt_Edit_Name').val(),
             Price: $('#txt_Edit_Price').val(),
+            Timer: $('#txt_Edit_Timer').val(),
             Description: $('#txt_Edit_Description').val()
         }
     }
@@ -193,6 +198,7 @@ function modalDelete(id) {
           if (r.Success) {
               $('#txt_Delete_Name').html(r.Model.Name);
               $('#txt_Delete_Price').html(r.Model.Price);
+              $('#txt_Delete_Timer').html(r.Model.Timer + " min/s");
               $('#txt_Edit_Description').html(r.Model.Description);
               $("#btn_Delete").attr("onclick", "Delete(" + r.Model.Id + ")");
           } else {

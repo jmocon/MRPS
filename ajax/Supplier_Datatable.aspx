@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Supplier_Datatable.aspx.cs" Inherits="ajax_Supplier_Datatable" %>

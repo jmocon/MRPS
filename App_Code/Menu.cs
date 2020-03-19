@@ -16,6 +16,7 @@ public class Menus
         {
             new SqlParameter("@Name",mdl.Name),
             new SqlParameter("@Price",mdl.Price),
+            new SqlParameter("@Timer",mdl.Timer),
             new SqlParameter("@Description",mdl.Description)
         };
 
@@ -33,6 +34,7 @@ public class Menus
             new SqlParameter("@Id",mdl.Id),
             new SqlParameter("@Name",mdl.Name),
             new SqlParameter("@Price",mdl.Price),
+            new SqlParameter("@Timer",mdl.Timer),
             new SqlParameter("@Description",mdl.Description)
         };
 
@@ -91,6 +93,7 @@ public class Menus
             Id = int.Parse(dr["Id"].ToString()),
             Name = dr["Name"].ToString(),
             Price = decimal.Parse(dr["Price"].ToString()),
+            Timer = decimal.Parse(dr["Timer"].ToString()),
             Description = dr["Description"].ToString()
         };
 
@@ -114,6 +117,7 @@ public class Menus
             Id = int.Parse(dr["Id"].ToString()),
             Name = dr["Name"].ToString(),
             Price = decimal.Parse(dr["Price"].ToString()),
+            Timer = decimal.Parse(dr["Timer"].ToString()),
             Description = dr["Description"].ToString(),
         };
 
@@ -154,6 +158,7 @@ public class MenuModel
     public int Id { get; set; }
     public string Name { get; set; }
     public decimal Price { get; set; }
+    public decimal Timer { get; set; }
     public string Description { get; set; }
     public bool X_Deleted { get; set; }
 }

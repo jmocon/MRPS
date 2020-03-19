@@ -71,35 +71,17 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePurchase" aria-expanded="true" aria-controls="collapsePurchase">
+        <a class="nav-link" href="Purchase.aspx">
           <i class="fas fa-fw fa-shopping-basket"></i>
           <span>Purchase</span>
         </a>
-        <div id="collapsePurchase" class="collapse" aria-labelledby="headingPurchase" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="Purchase.aspx">All</a>
-            <a class="collapse-item" href="Purchase.aspx">Buy</a>
-            <a class="collapse-item" href="Purchase.aspx">Sold</a>
-            <a class="collapse-item" href="Purchase.aspx">Spoiled</a>
-            <a class="collapse-item" href="Purchase.aspx">Subsidized</a>
-          </div>
-        </div>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProduce" aria-expanded="true" aria-controls="collapseProduce">
+        <a class="nav-link" href="Produce.aspx">
           <i class="fas fa-fw fa-utensils"></i>
           <span>Produce</span>
         </a>
-        <div id="collapseProduce" class="collapse" aria-labelledby="headingProduce" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="Produce.aspx">All</a>
-            <a class="collapse-item" href="Produce.aspx">Pending</a>
-            <a class="collapse-item" href="Produce.aspx">Cooking</a>
-            <a class="collapse-item" href="Produce.aspx">Preparing</a>
-            <a class="collapse-item" href="Produce.aspx">Done</a>
-          </div>
-        </div>
       </li>
 
       <!-- Divider -->
@@ -109,12 +91,24 @@
       <div class="sidebar-heading">
         Strategy
       </div>
-
+      
       <li class="nav-item">
-        <a class="nav-link" href="Menu.aspx">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Reports</span>
         </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">By Current Month:</h6>
+            <a class="collapse-item" href="Reports_Transaction.aspx">Summary</a>
+            <a class="collapse-item" href="register.html">Register</a>
+            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+            <div class="collapse-divider"></div>
+            <h6 class="collapse-header">Other Pages:</h6>
+            <a class="collapse-item" href="404.html">404 Page</a>
+            <a class="collapse-item" href="blank.html">Blank Page</a>
+          </div>
+        </div>
       </li>
 
       <li class="nav-item">
@@ -132,7 +126,7 @@
         Properties
       </div>
 
-      <li class="nav-item">
+      <%--<li class="nav-item">
         <a class="nav-link" href="Menu.aspx">
           <i class="fas fa-fw fa-user"></i>
           <span>User</span>
@@ -151,10 +145,10 @@
           <i class="fas fa-fw fa-ruler"></i>
           <span>Unit</span>
         </a>
-      </li>
+      </li>--%>
 
       <li class="nav-item">
-        <a class="nav-link" href="Menu.aspx">
+        <a class="nav-link" href="Supplier.aspx">
           <i class="fas fa-fw fa-truck"></i>
           <span>Supplier</span>
         </a>
@@ -186,57 +180,6 @@
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
-
-            <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">3+</span>
-              </a>
-              <!-- Dropdown - Alerts -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">Alerts Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-primary">
-                      <i class="fas fa-file-alt text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 12, 2019</div>
-                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-success">
-                      <i class="fas fa-donate text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 7, 2019</div>
-                    $290.29 has been deposited into your account!
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 2, 2019</div>
-                    Spending Alert: We've noticed unusually high spending for your account.
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-              </div>
-            </li>
-
-            <div class="topbar-divider d-none d-sm-block"></div>
-
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

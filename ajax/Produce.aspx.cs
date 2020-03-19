@@ -61,10 +61,17 @@ public partial class ajax_Produce : System.Web.UI.Page
     {
         ResponseModel res = new ResponseModel();
         Produce clsProduce = new Produce();
-        mdlProduce = clsProduce.Add(mdlProduce);
-        res.Success = true;
-        res.Message = "Successfully Added New Produce";
-        res.Model = mdlProduce;
+        if(clsProduce.IsPossible(mdlProduce.Menu_Id, mdlProduce.Quantity)){
+            mdlProduce = clsProduce.Add(mdlProduce);
+            res.Success = true;
+            res.Message = "Successfully Added New Produce";
+            res.Model = mdlProduce;
+        }
+        else
+        {
+            res.Success = false;
+            res.Message = "Insufficient Item/s";
+        }
 
         string output = JsonConvert.SerializeObject(res);
         Response.Write(output);

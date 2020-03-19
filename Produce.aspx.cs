@@ -33,9 +33,10 @@ public partial class Produce : System.Web.UI.Page
         List<DropdownModel> lst = new List<DropdownModel>
         {
             new DropdownModel {Value = "0", Text = "Pending"},
-            new DropdownModel {Value = "1", Text = "Cooking"},
-            new DropdownModel {Value = "2", Text = "Preparing"},
-            new DropdownModel {Value = "3", Text = "Done"},
+            new DropdownModel {Value = "1", Text = "Started"},
+            new DropdownModel {Value = "2", Text = "Near Completion"},
+            new DropdownModel {Value = "3", Text = "Overdue"},
+            new DropdownModel {Value = "4", Text = "Done"}
         };
 
         sel_Add_Status.DataSource = lst;

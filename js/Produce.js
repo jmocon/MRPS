@@ -9,7 +9,25 @@ function InitializeDatatable() {
         columns: [
             { "data": "Menu" },
             { "data": "Quantity" },
-            { "data": "Status" },
+            {
+                "data": "Status",
+                "render": function (data, type, row, meta) {
+                    switch (data) {
+                        case "Pending":
+                            return `<p class="text-secondary m-0 p-0">`+data+`</p>`;
+                        case "Started":
+                            return `<p class="text-success m-0 p-0">` + data + `</p>`;
+                        case "Near Completion":
+                            return `<p class="text-warning m-0 p-0">` + data + `</p>`;
+                        case "Overdue":
+                            return `<p class="text-danger m-0 p-0">` + data + `</p>`;
+                        case "Done":
+                            return `<p class="text-primary m-0 p-0">` + data + `</p>`;
+                        default:
+                            return data;
+                    }
+                }
+            },
             {
                 "data": "Id",
                 "render": function (data, type, row, meta) {

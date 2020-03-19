@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public partial class Purchase : System.Web.UI.Page
+public partial class Purchases : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {

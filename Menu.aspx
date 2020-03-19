@@ -62,13 +62,19 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-6">
+            <div class="col-12">
               <label>Name</label>
               <input type="text" class="form-control" id="txt_Add_Name" placeholder="Name">
             </div>
+          </div>
+          <div class="row mb-2">
             <div class="col-6">
               <label>Price</label>
               <input type="number" class="form-control" id="txt_Add_Price" placeholder="Price">
+            </div>
+            <div class="col-6">
+              <label>Minutes to Produce</label>
+              <input type="number" class="form-control" id="txt_Add_Timer" placeholder="Minutes">
             </div>
           </div>
           <div class="row mb-2">
@@ -102,13 +108,19 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-6">
+            <div class="col-12">
               <label>Name</label>
               <div class="form-control" id="txt_View_Name">Name</div>
             </div>
+          </div>
+          <div class="row mb-2">
             <div class="col-6">
               <label>Price</label>
               <div class="form-control" id="txt_View_Price">Price</div>
+            </div>
+            <div class="col-6">
+              <label>Minutes to Produce</label>
+              <div class="form-control" id="txt_View_Timer">Timer</div>
             </div>
           </div>
           <div class="row mb-2">
@@ -142,13 +154,19 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-6">
+            <div class="col-12">
               <label>Name</label>
               <input type="text" class="form-control" id="txt_Edit_Name" placeholder="Name">
             </div>
+          </div>
+          <div class="row mb-2">
             <div class="col-6">
               <label>Price</label>
               <input type="number" class="form-control" id="txt_Edit_Price" placeholder="Price">
+            </div>
+            <div class="col-6">
+              <label>Minutes to Produce</label>
+              <input type="text" class="form-control" id="txt_Edit_Timer" placeholder="Minutes">
             </div>
           </div>
           <div class="row mb-2">
@@ -188,13 +206,19 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-6">
+            <div class="col-12">
               <label>Name</label>
               <div class="form-control" id="txt_Delete_Name">Name</div>
             </div>
+          </div>
+          <div class="row mb-2">
             <div class="col-6">
               <label>Price</label>
               <div class="form-control" id="txt_Delete_Price">Price</div>
+            </div>
+            <div class="col-6">
+              <label>Minutes to Produce</label>
+              <div class="form-control" id="txt_Delete_Timer">Timer</div>
             </div>
           </div>
           <div class="row mb-2">

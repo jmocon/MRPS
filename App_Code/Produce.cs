@@ -13,12 +13,12 @@ public class Produce
     {
         Database db = new Database();
 
-        List<SqlParameter> lst = new List<SqlParameter>
-        {
-            new SqlParameter("@Menu_Id",mdl.Menu_Id),
-            new SqlParameter("@Quantity",mdl.Quantity),
-            new SqlParameter("@Status",mdl.Status)
-        };
+        List<SqlParameter>  lst = new List<SqlParameter>
+            {
+                new SqlParameter("@Menu_Id",mdl.Menu_Id),
+                new SqlParameter("@Quantity",mdl.Quantity),
+                new SqlParameter("@Status",mdl.Status)
+            };
 
         mdl.Id = int.Parse(db.ExecuteScalar(lst, "Production_Add"));
 
@@ -110,6 +110,33 @@ public class Produce
         };
 
         return int.Parse(db.ExecuteScalar(lst, "Production_Delete"));
+    }
+
+    public bool IsPossible(int menu_id, int quantity)
+    {
+        Database db = new Database();
+        bool result = true;
+
+        List<SqlParameter> lst = new List<SqlParameter>
+        {
+            new SqlParameter("@Menu_Id",menu_id),
+            new SqlParameter("@Quantity",quantity)
+        };
+        DataTable dt = db.ExecuteReader(lst, "Production_IsPossible");
+        foreach (DataRow dr in dt.Rows)
+        {
+            if (decimal.Parse(dr["Quantity"].ToString()) < 0)
+            {
+                result = false;
+            }
+        }
+        return result;
+    }
+
+    public DataTable GetBestSeller()
+    {
+        Database db = new Database();
+        return db.ExecuteReader(new List<SqlParameter>(), "Produce_BestSeller");
     }
 }
 

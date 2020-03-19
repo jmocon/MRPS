@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Purchase.aspx.cs" Inherits="Purchase" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Purchase.aspx.cs" Inherits="Purchases" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="PageHead" runat="Server">
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">

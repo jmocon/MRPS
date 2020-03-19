@@ -123,6 +123,30 @@ public class Purchase
 
         return int.Parse(db.ExecuteScalar(lst, "Purchase_Delete"));
     }
+
+    public int GetBuyCount()
+    {
+        Database db = new Database();
+        return int.Parse(db.ExecuteScalar(new List<SqlParameter>(), "Purchase_Buy_Count"));
+    }
+
+    public int GetSoldCount()
+    {
+        Database db = new Database();
+        return int.Parse(db.ExecuteScalar(new List<SqlParameter>(), "Purchase_Sold_Count"));
+    }
+
+    public int GetSpoiledCount()
+    {
+        Database db = new Database();
+        return int.Parse(db.ExecuteScalar(new List<SqlParameter>(), "Purchase_Spoiled_Count"));
+    }
+
+    public int GetSubsidizedCount()
+    {
+        Database db = new Database();
+        return int.Parse(db.ExecuteScalar(new List<SqlParameter>(), "Purchase_Subsidized_Count"));
+    }
 }
 
 public class PurchaseModel
