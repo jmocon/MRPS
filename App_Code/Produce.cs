@@ -138,6 +138,23 @@ public class Produce
         Database db = new Database();
         return db.ExecuteReader(new List<SqlParameter>(), "Produce_BestSeller");
     }
+
+    public int GetLate(int month, int year)
+    {
+        Database db = new Database();
+
+        List<SqlParameter> lst = new List<SqlParameter>
+        {
+            new SqlParameter("@Month",month),
+            new SqlParameter("@Year",year)
+        };
+        DataTable dt = db.ExecuteReader(lst, "Production_GetLate");
+        foreach (DataRow dr in dt.Rows)
+        {
+            return int.Parse(dr["Count"].ToString());
+        }
+        return 0;
+    }
 }
 
 public class ProduceModel

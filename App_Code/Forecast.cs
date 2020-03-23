@@ -3,9 +3,20 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
-public class Item
+/// <summary>
+/// Summary description for Forecast
+/// Type
+///     0 - Daily
+///     1 - Weekly
+///     2 - Monthly
+/// Day
+///     Day - 0
+///     Weekly - 1-7 = Sunday to Saturday
+///     Monthly - 1-30
+/// </summary>
+public class Forecast
 {
-    public Item()
+    public Forecast()
     {
     }
 
@@ -159,35 +170,4 @@ public class Item
 
         return int.Parse(db.ExecuteScalar(lst, "Item_Delete"));
     }
-}
-
-public class ItemModel
-{
-    public ItemModel()
-    {
-    }
-
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public decimal Price { get; set; }
-    public int Category_Id { get; set; }
-    public int Unit_Id { get; set; }
-    public DateTime X_DateCreated { get; set; }
-    public bool X_Archived { get; set; }
-    public bool X_Deleted { get; set; }
-}
-
-public class ItemViewModel
-{
-    public ItemViewModel()
-    {
-    }
-
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public decimal Price { get; set; }
-    public string Category { get; set; }
-    public decimal Quantity { get; set; }
-    public string Unit { get; set; }
-    public string DateCreated { get; set; }
 }

@@ -42,9 +42,9 @@ public partial class ItemList : System.Web.UI.Page
         sel_Edit_Unit.DataTextField = "Name";
         sel_Edit_Unit.DataBind();
 
-        sel_Edit_Critical_Unit.DataSource = cls.Get();
-        sel_Edit_Critical_Unit.DataValueField = "Id";
-        sel_Edit_Critical_Unit.DataTextField = "Name";
-        sel_Edit_Critical_Unit.DataBind();
+        //sel_Edit_Critical_Unit.DataSource = cls.Get();
+        //sel_Edit_Critical_Unit.DataValueField = "Id";
+        //sel_Edit_Critical_Unit.DataTextField = "Name";
+        //sel_Edit_Critical_Unit.DataBind();
     }
 }

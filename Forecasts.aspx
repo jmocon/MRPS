@@ -1,43 +1,49 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Produce.aspx.cs" Inherits="Produces" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Forecasts.aspx.cs" Inherits="Forecasts" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="PageHead" runat="Server">
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="PageBody" runat="Server">
-
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <div>
-      <h1 class="h3 mb-2 text-gray-800">Produce List</h1>
-      <p class="mb-4">This page shows the list of all the transactions of items.</p>
+      <h1 class="h3 mb-0 text-gray-800">Forecast List</h1>
+      <p class="mb-4">This page shows the list of all items in the inventory.</p>
     </div>
     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#modalAdd">
       <i class="fas fa-plus fa-sm text-white-50 mr-1"></i>Add new Item
     </button>
   </div>
 
+  <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-body">
       <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>Menu</th>
-              <th>Quantity</th>
-              <th>Status</th>
+              <th>Item</th>
+              <th>Type</th>
+              <th>Day</th>
+              <th>Start Date</th>
+              <th>End Date</th>
               <th>Action</th>
             </tr>
           </thead>
           <tfoot>
             <tr>
-              <th>Menu</th>
-              <th>Quantity</th>
-              <th>Status</th>
+              <th>Item</th>
+              <th>Type</th>
+              <th>Day</th>
+              <th>Start Date</th>
+              <th>End Date</th>
               <th>Action</th>
             </tr>
           </tfoot>
           <tbody>
             <tr>
+              <td></td>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -65,19 +71,27 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-12">
-              <label>Menu</label>
-              <asp:DropDownList ID="sel_Add_Menu" class="form-control" runat="server"></asp:DropDownList>
+            <div class="col-4">
+              <label>Item</label>
+              <asp:DropDownList ID="sel_Add_Item" class="form-control" runat="server"></asp:DropDownList>
+            </div>
+            <div class="col-4">
+              <label>Type</label>
+              <asp:DropDownList ID="sel_Add_Type" class="form-control" runat="server"></asp:DropDownList>
+            </div>
+            <div class="col-4">
+              <label>Day<small>(Week 1-7, Month 1-28)</small></label>
+              <input type="number" class="form-control" id="txt_Add_Day" placeholder="Day">
             </div>
           </div>
           <div class="row mb-2">
             <div class="col-6">
-              <label>Quantity</label>
-              <input type="number" id="txt_Add_Quantity" class="form-control" placeholder="Quantity">
+              <label>Start Date</label>
+              <input type="date" class="form-control" id="txt_Add_StartDate" placeholder="Start Day">
             </div>
             <div class="col-6">
-              <label>Status</label>
-              <asp:DropDownList ID="sel_Add_Status" class="form-control" runat="server"></asp:DropDownList>
+              <label>End Date</label>
+              <input type="date" class="form-control" id="txt_Add_EndDate" placeholder="End Day">
             </div>
           </div>
         </div>
@@ -94,7 +108,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Menu Details</h5>
+          <h5 class="modal-title">Item Details</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -105,19 +119,27 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-12">
-              <label>Menu</label>
-              <div id="txt_View_Menu" class="form-control"></div>
+            <div class="col-4">
+              <label>Item</label>
+              <div class="form-control" id="txt_View_Item">Item</div>
+            </div>
+            <div class="col-4">
+              <label>Type</label>
+              <div class="form-control" id="txt_View_Type">Item</div>
+            </div>
+            <div class="col-4">
+              <label>Day<small>(Week 1-7, Month 1-28)</small></label>
+              <div class="form-control" id="txt_View_Day">Item</div>
             </div>
           </div>
-          <div class="row">
+          <div class="row mb-2">
             <div class="col-6">
-              <label>Quantity</label>
-              <div id="txt_View_Quantity" class="form-control"></div>
+              <label>Start Date</label>
+              <div class="form-control" id="txt_View_StartDate">Item</div>
             </div>
             <div class="col-6">
-              <label>Status</label>
-              <div id="txt_View_Status" class="form-control"></div>
+              <label>End Date</label>
+              <div class="form-control" id="txt_View_EndDate">Item</div>
             </div>
           </div>
         </div>
@@ -144,19 +166,27 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-12">
-              <label>Menu</label>
-              <asp:DropDownList ID="sel_Edit_Menu" class="form-control" runat="server"></asp:DropDownList>
+            <div class="col-4">
+              <label>Item</label>
+              <asp:DropDownList ID="sel_Edit_Item" class="form-control" runat="server"></asp:DropDownList>
+            </div>
+            <div class="col-4">
+              <label>Type</label>
+              <asp:DropDownList ID="sel_Edit_Type" class="form-control" runat="server"></asp:DropDownList>
+            </div>
+            <div class="col-4">
+              <label>Day<small>(Week 1-7, Month 1-28)</small></label>
+              <input type="number" class="form-control" id="txt_Edit_Day" placeholder="Day">
             </div>
           </div>
           <div class="row mb-2">
             <div class="col-6">
-              <label>Quantity</label>
-              <input type="number" id="txt_Edit_Quantity" class="form-control" placeholder="Quantity">
+              <label>Start Date</label>
+              <input type="date" class="form-control" id="txt_Edit_StartDate" placeholder="Start Day">
             </div>
             <div class="col-6">
-              <label>Status</label>
-              <asp:DropDownList ID="sel_Edit_Status" class="form-control" runat="server"></asp:DropDownList>
+              <label>End Date</label>
+              <input type="date" class="form-control" id="txt_Edit_EndDate" placeholder="End Day">
             </div>
           </div>
         </div>
@@ -190,19 +220,27 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-12">
-              <label>Menu</label>
-              <div id="txt_Delete_Menu" class="form-control"></div>
+            <div class="col-4">
+              <label>Item</label>
+              <div class="form-control" id="txt_Delete_Item">Item</div>
+            </div>
+            <div class="col-4">
+              <label>Type</label>
+              <div class="form-control" id="txt_Delete_Type">Item</div>
+            </div>
+            <div class="col-4">
+              <label>Day<small>(Week 1-7, Month 1-28)</small></label>
+              <div class="form-control" id="txt_Delete_Day">Item</div>
             </div>
           </div>
           <div class="row mb-2">
             <div class="col-6">
-              <label>Quantity</label>
-              <div id="txt_Delete_Quantity" class="form-control"></div>
+              <label>Start Date</label>
+              <div class="form-control" id="txt_Delete_StartDate">Item</div>
             </div>
             <div class="col-6">
-              <label>Status</label>
-              <div id="txt_Delete_Status" class="form-control"></div>
+              <label>End Date</label>
+              <div class="form-control" id="txt_Delete_EndDate">Item</div>
             </div>
           </div>
         </div>
@@ -235,5 +273,5 @@
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <script src="js/Utility.js"></script>
-  <script src="js/Produce.js"></script>
+  <script src="js/Forecasts.js"></script>
 </asp:Content>

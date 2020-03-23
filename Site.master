@@ -101,18 +101,14 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">By Current Month:</h6>
             <a class="collapse-item" href="Reports_Transaction.aspx">Summary</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
+            <a class="collapse-item" href="Reports_Usage.aspx">Usage</a>
+            <a class="collapse-item" href="Reports_LateFrequency.aspx">Late Frequency</a>
           </div>
         </div>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="Menu.aspx">
+        <a class="nav-link" href="Forecasts.aspx">
           <i class="fas fa-fw fa-chalkboard-teacher"></i>
           <span>Planning</span>
         </a>
