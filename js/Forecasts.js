@@ -20,9 +20,6 @@ function InitializeDatatable() {
                     <button type="button" class="btn" onclick= "modalView(`+ data + `)" data-toggle="modal" data-target="#modalView">
                       <i class="fas fa-eye"></i>
                     </button>
-                    <button type="button" class="btn" onclick= "modalEdit(`+ data + `)" data-toggle="modal" data-target="#modalEdit">
-                      <i class="fas fa-pencil-alt"></i>
-                    </button>
                     <button type="button" class="btn" onclick= "modalDelete(`+ data + `)" data-toggle="modal" data-target="#modalDelete">
                       <i class="fas fa-trash"></i>
                     </button>
@@ -44,11 +41,16 @@ function Add() {
     var data = {
         url: "Forecasts.aspx?f=add",
         param: {
-            Item: $('#PageBody_sel_Add_Item').val(),
+            Item_Id: $('#PageBody_sel_Add_Item').val(),
             Type: $('#PageBody_sel_Add_Type').val(),
             Day: $('#txt_Add_Day').val(),
             StartDate: $('#txt_Add_StartDate').val(),
-            EndDate: $('#txt_Add_EndDate').val()
+            EndDate: $('#txt_Add_EndDate').val(),
+
+            Price: $('#txt_Add_Price').val(),
+            Supplier_Id: $('#PageBody_sel_Add_Supplier').val(),
+            Quantity: $('#txt_Add_Quantity').val(),
+            Unit_Id: $('#PageBody_sel_Add_Unit').val()
         }
     }
 
@@ -214,7 +216,6 @@ function modalDelete(id) {
 }
 
 function Delete(id) {
-
     var u = new Utility();
     u.Loading('#modalDelete_notif');
     var data = {

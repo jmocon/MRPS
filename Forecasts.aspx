@@ -94,6 +94,26 @@
               <input type="date" class="form-control" id="txt_Add_EndDate" placeholder="End Day">
             </div>
           </div>
+          <div class="row mb-2">
+            <div class="col-6">
+              <label>Supplier</label>
+              <asp:DropDownList ID="sel_Add_Supplier" class="form-control" runat="server"></asp:DropDownList>
+            </div>
+            <div class="col-6">
+              <label>Price</label>
+              <input type="number" class="form-control" id="txt_Add_Price" placeholder="Price">
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-6">
+              <label>Quantity</label>
+              <input type="number" min="1" class="form-control" id="txt_Add_Quantity" placeholder="Quantity">
+            </div>
+            <div class="col-6">
+              <label>Unit</label>
+              <asp:DropDownList ID="sel_Add_Unit" class="form-control" runat="server"></asp:DropDownList>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" onclick="Add()">Add</button>

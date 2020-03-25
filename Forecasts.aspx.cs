@@ -7,6 +7,8 @@ public partial class Forecasts : System.Web.UI.Page
     {
         PopulateItem();
         PopulateType();
+        PopulateSupplier();
+        PopulateUnit();
     }
 
     private void PopulateItem()
@@ -42,5 +44,25 @@ public partial class Forecasts : System.Web.UI.Page
         sel_Edit_Type.DataValueField = "Value";
         sel_Edit_Type.DataTextField = "Text";
         sel_Edit_Type.DataBind();
+    }
+
+    private void PopulateSupplier()
+    {
+        Supplier cls = new Supplier();
+
+        sel_Add_Supplier.DataSource = cls.GetForDropdown();
+        sel_Add_Supplier.DataValueField = "Id";
+        sel_Add_Supplier.DataTextField = "Name";
+        sel_Add_Supplier.DataBind();
+    }
+
+    private void PopulateUnit()
+    {
+        Unit cls = new Unit();
+
+        sel_Add_Unit.DataSource = cls.GetForDropdown();
+        sel_Add_Unit.DataValueField = "Id";
+        sel_Add_Unit.DataTextField = "Name";
+        sel_Add_Unit.DataBind();
     }
 }

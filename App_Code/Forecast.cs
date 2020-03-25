@@ -20,75 +20,37 @@ public class Forecast
     {
     }
 
-    public ItemModel Add(ItemModel mdl)
+    public ForecastModel Add(ForecastItemModel mdl)
     {
         Database db = new Database();
 
         List<SqlParameter> lst = new List<SqlParameter>
         {
-            new SqlParameter("@Name",mdl.Name),
-            new SqlParameter("@Price",mdl.Price),
-            new SqlParameter("@Category_Id",mdl.Category_Id),
-            new SqlParameter("@Unit_Id",mdl.Unit_Id)
+            new SqlParameter("@StartDate",mdl.StartDate),
+            new SqlParameter("@EndDate",mdl.EndDate),
+            new SqlParameter("@Item_Id",mdl.Item_Id),
+            new SqlParameter("@Type",mdl.Type),
+            new SqlParameter("@Day",mdl.Day),
+            
+            new SqlParameter("@P_Price",mdl.Price),
+            new SqlParameter("@P_Supplier_Id",mdl.Supplier_Id),
+            new SqlParameter("@P_Quantity",mdl.Quantity),
+            new SqlParameter("@P_Unit_Id",mdl.Unit_Id)
         };
 
-        mdl.Id = int.Parse(db.ExecuteScalar(lst, "Item_Add"));
-
-        return mdl;
-    }
-
-    public int Edit(ItemModel mdl)
-    {
-        Database db = new Database();
-
-        List<SqlParameter> lst = new List<SqlParameter>
+        mdl.Id = int.Parse(db.ExecuteScalar(lst, "Forecast_Add"));
+        ForecastModel mdlF = new ForecastModel
         {
-            new SqlParameter("@Id",mdl.Id),
-            new SqlParameter("@Name",mdl.Name),
-            new SqlParameter("@Price",mdl.Price),
-            new SqlParameter("@Category_Id",mdl.Category_Id),
-            new SqlParameter("@Unit_Id",mdl.Unit_Id)
+            StartDate = mdl.StartDate,
+            EndDate = mdl.EndDate,
+            Item_Id = mdl.Item_Id,
+            Type = mdl.Type,
+            Day = mdl.Day
         };
-
-        return int.Parse(db.ExecuteScalar(lst, "Item_Edit"));
+        return mdlF;
     }
 
-    public bool IsNameExist(string value)
-    {
-        Database db = new Database();
-
-        List<SqlParameter> lst = new List<SqlParameter>
-        {
-            new SqlParameter("@Name",value)
-        };
-
-        int count = int.Parse(db.ExecuteScalar(lst, "Item_CountByName"));
-        if (count > 0)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    public bool IsNameExist(int id, string name)
-    {
-        Database db = new Database();
-
-        List<SqlParameter> lst = new List<SqlParameter>
-        {
-            new SqlParameter("@Id",id),
-            new SqlParameter("@Name",name)
-        };
-
-        int count = int.Parse(db.ExecuteScalar(lst, "Item_CountByNameNotId"));
-        if (count > 0)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    public ItemModel GetById(int id)
+    public ForecastModel GetById(int id)
     {
         Database db = new Database();
 
@@ -97,22 +59,23 @@ public class Forecast
             new SqlParameter("@Id",id)
         };
 
-        DataTable dt = db.ExecuteReader(lst, "Item_GetById");
+        DataTable dt = db.ExecuteReader(lst, "Forecast_GetById");
         DataRow dr = dt.Rows[0];
 
-        ItemModel mdl = new ItemModel
+        ForecastModel mdl = new ForecastModel
         {
             Id = int.Parse(dr["Id"].ToString()),
-            Name = dr["Name"].ToString(),
-            Price = decimal.Parse(dr["Price"].ToString()),
-            Category_Id = int.Parse(dr["Category_Id"].ToString()),
-            Unit_Id = int.Parse(dr["Unit_Id"].ToString())
+            StartDate = DateTime.Parse(dr["StartDate"].ToString()),
+            EndDate = DateTime.Parse(dr["EndDate"].ToString()),
+            Item_Id = int.Parse(dr["Item_Id"].ToString()),
+            Type = int.Parse(dr["Type"].ToString()),
+            Day = int.Parse(dr["Day"].ToString())
         };
 
         return mdl;
     }
 
-    public ItemViewModel GetViewById(int id)
+    public ForecastViewModel GetViewById(int id)
     {
         Database db = new Database();
 
@@ -121,18 +84,17 @@ public class Forecast
             new SqlParameter("@Id",id)
         };
 
-        DataTable dt = db.ExecuteReader(lst, "Item_GetViewById");
+        DataTable dt = db.ExecuteReader(lst, "Forecast_GetViewById");
         DataRow dr = dt.Rows[0];
 
-        ItemViewModel mdl = new ItemViewModel
+        ForecastViewModel mdl = new ForecastViewModel
         {
             Id = int.Parse(dr["Id"].ToString()),
-            Name = dr["Name"].ToString(),
-            Price = decimal.Parse(dr["Price"].ToString()),
-            Category = dr["Category"].ToString(),
-            Quantity = decimal.Parse(dr["Quantity"].ToString()),
-            Unit = dr["Unit"].ToString(),
-            DateCreated = Convert.ToDateTime(dr["DateCreated"].ToString()).ToString("MMMM d, yyyy hh:mm tt")
+            StartDate = dr["StartDate"].ToString(),
+            EndDate = dr["EndDate"].ToString(),
+            Item_Id = dr["Item_Id"].ToString(),
+            Type = dr["Type"].ToString(),
+            Day = dr["Day"].ToString()
         };
 
         return mdl;
@@ -142,21 +104,7 @@ public class Forecast
     {
         Database db = new Database();
         List<SqlParameter> lst = new List<SqlParameter>();
-        return db.ExecuteReader(lst, "Item_GetForDatatable");
-    }
-
-    public DataTable GetUsageForDatatable()
-    {
-        Database db = new Database();
-        List<SqlParameter> lst = new List<SqlParameter>();
-        return db.ExecuteReader(lst, "Item_GetUsageForDatatable");
-    }
-
-    public DataTable GetForDropdown()
-    {
-        Database db = new Database();
-        List<SqlParameter> lst = new List<SqlParameter>();
-        return db.ExecuteReader(lst, "Item_GetForDropdown");
+        return db.ExecuteReader(lst, "Forecast_GetForDatatable");
     }
 
     public int Delete(int id)
@@ -168,6 +116,52 @@ public class Forecast
             new SqlParameter("@Id",id)
         };
 
-        return int.Parse(db.ExecuteScalar(lst, "Item_Delete"));
+        return int.Parse(db.ExecuteScalar(lst, "Forecast_Delete"));
     }
+}
+
+public class ForecastModel
+{
+    public ForecastModel()
+    {
+    }
+
+    public int Id { get; set; }
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
+    public int Item_Id { get; set; }
+    public int Type { get; set; }
+    public int Day { get; set; }
+}
+
+public class ForecastItemModel
+{
+    public ForecastItemModel()
+    {
+    }
+
+    public int Id { get; set; }
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
+    public int Item_Id { get; set; }
+    public int Type { get; set; }
+    public int Day { get; set; }
+    public decimal Price { get; set; }
+    public int Supplier_Id { get; set; }
+    public decimal Quantity { get; set; }
+    public int Unit_Id { get; set; }
+}
+
+public class ForecastViewModel
+{
+    public ForecastViewModel()
+    {
+    }
+
+    public int Id { get; set; }
+    public string StartDate { get; set; }
+    public string EndDate { get; set; }
+    public string Item_Id { get; set; }
+    public string Type { get; set; }
+    public string Day { get; set; }
 }
