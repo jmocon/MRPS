@@ -155,6 +155,18 @@ public class Produce
         }
         return 0;
     }
+
+    public DataTable GetOverallStats()
+    {
+        Database db = new Database();
+        return db.ExecuteReader(new List<SqlParameter>(), "Production_GetOverallStats");
+    }
+
+    public DataTable LastMonthStats()
+    {
+        Database db = new Database();
+        return db.ExecuteReader(new List<SqlParameter>(), "Production_LastMonthStats");
+    }
 }
 
 public class ProduceModel

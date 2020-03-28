@@ -106,12 +106,19 @@
           </div>
         </div>
       </li>
-
+      
       <li class="nav-item">
-        <a class="nav-link" href="Forecasts.aspx">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages2" aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-chalkboard-teacher"></i>
           <span>Planning</span>
         </a>
+        <div id="collapsePages2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="Forecasts.aspx">Forecast</a>
+            <a class="collapse-item" href="Reports_ProductionPlan.aspx">Production Predictions</a>
+            <a class="collapse-item" href="Criticals.aspx">Critical Items</a>
+          </div>
+        </div>
       </li>
 
       <!-- Divider -->
@@ -179,15 +186,15 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%--Name--%></span>
                 <i class="fas fa-user"></i>
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+               <%-- <a class="dropdown-item" href="#">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
-                </a>
+                </a>--%>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout

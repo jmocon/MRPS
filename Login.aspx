@@ -19,7 +19,6 @@
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
 </head>
 
 <body class="bg-gradient-primary">
@@ -41,27 +40,24 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                   </div>
-                  <form class="user">
-                    <div class="form-group">
-                      <input type="text" class="form-control form-control-user" id="txtUsername" placeholder="Username">
+                  <form class="user" runat="server">
+                    <div class="form-group" runat="server" id="divnotif">
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                      <asp:TextBox ID="txtUsername" class="form-control form-control-user" runat="server" placeholder="Username"></asp:TextBox>
                     </div>
-                    <a href="Dashboard.aspx" class="btn btn-primary btn-user btn-block">
-                      Login
-                    </a>
+                    <div class="form-group">
+                      <asp:TextBox ID="txtPassword" class="form-control form-control-user" runat="server" placeholder="Password"></asp:TextBox>
+                    </div>
+                    <asp:Button ID="btnLogin" runat="server" Text="Login" class="btn btn-primary btn-user btn-block" OnClick="btnLogin_Click" />
                   </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
-
     </div>
-
   </div>
 
   <!-- Bootstrap core JavaScript-->
@@ -73,7 +69,5 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
-
 </body>
-
 </html>

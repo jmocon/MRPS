@@ -141,6 +141,13 @@ public class Item
         return db.ExecuteReader(lst, "Item_GetUsageForDatatable");
     }
 
+    public DataTable GetCurrentQuantity()
+    {
+        Database db = new Database();
+        List<SqlParameter> lst = new List<SqlParameter>();
+        return db.ExecuteReader(lst, "Item_GetCurrentQuantity");
+    }
+
     public DataTable GetForDropdown()
     {
         Database db = new Database();
