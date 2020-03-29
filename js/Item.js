@@ -51,44 +51,84 @@ function InitializeDatatable() {
     }, 30000);
 }
 
-function Add() {
-    var u = new Utility();
-    u.Loading('#modalAdd_notif');
-    var data = {
-        url: "Item.aspx?f=add",
-        param: {
-            Name: $('#txt_Add_Name').val(),
-            Price: $('#txt_Add_Price').val(),
-            Category_Id: $('#PageBody_sel_Add_Category').val(),
-            Unit_Id: $('#PageBody_sel_Add_Unit').val()
+function CheckInput(com) {
+    if (com == 'add') {
+        if (!$('#txt_Add_Name').val()) {
+            return false;
+        }
+        if (!$('#txt_Add_Price').val()) {
+            return false;
+        }
+        if (!$('#PageBody_sel_Add_Category').val()) {
+            return false;
+        }
+        if (!$('#PageBody_sel_Add_Unit').val()) {
+            return false;
+        }
+    } else if (com == 'edit') {
+        if (!$('#txt_Edit_Name').val()) {
+            return false;
+        }
+        if (!$('#txt_Edit_Price').val()) {
+            return false;
+        }
+        if (!$('#PageBody_sel_Edit_Category').val()) {
+            return false;
+        }
+        if (!$('#PageBody_sel_Edit_Unit').val()) {
+            return false;
         }
     }
 
-    u.SendData(data)
-      .done(function (r) {
-          if (r.Success) {
-              var alert = {
-                  type: "success",
-                  message: r.Message
-              };
-              $('#modalAdd_notif').html(u.AlertBox(alert));
-              var table = $('#dataTable').DataTable();
-              table.ajax.reload(null, false);
-              $('#txt_Add_Name').val("");
-              $('#txt_Add_Price').val("");
-              $('#PageBody_sel_Add_Category').val($('#PageBody_sel_Add_Category option:first').val());
-              $('#PageBody_sel_Add_Unit').val($('#PageBody_sel_Add_Unit option:first').val());
-          } else {
-              var alert = {
-                  type: "danger",
-                  title: r.Title,
-                  message: r.Message
-              };
-              $('#modalAdd_notif').html(u.AlertBox(alert));
-          }
-      }).fail(function () {
-          $('#modalAdd_notif').html(u.AlertServerFailed());
-      });
+    return true;
+}
+
+function Add() {
+    var u = new Utility();
+    if (CheckInput('add')) {
+        u.Loading('#modalAdd_notif');
+        var data = {
+            url: "Item.aspx?f=add",
+            param: {
+                Name: $('#txt_Add_Name').val(),
+                Price: $('#txt_Add_Price').val(),
+                Category_Id: $('#PageBody_sel_Add_Category').val(),
+                Unit_Id: $('#PageBody_sel_Add_Unit').val()
+            }
+        }
+
+        u.SendData(data)
+          .done(function (r) {
+              if (r.Success) {
+                  var alert = {
+                      type: "success",
+                      message: r.Message
+                  };
+                  $('#modalAdd_notif').html(u.AlertBox(alert));
+                  var table = $('#dataTable').DataTable();
+                  table.ajax.reload(null, false);
+                  $('#txt_Add_Name').val("");
+                  $('#txt_Add_Price').val("");
+                  $('#PageBody_sel_Add_Category').val($('#PageBody_sel_Add_Category option:first').val());
+                  $('#PageBody_sel_Add_Unit').val($('#PageBody_sel_Add_Unit option:first').val());
+              } else {
+                  var alert = {
+                      type: "danger",
+                      title: r.Title,
+                      message: r.Message
+                  };
+                  $('#modalAdd_notif').html(u.AlertBox(alert));
+              }
+          }).fail(function () {
+              $('#modalAdd_notif').html(u.AlertServerFailed());
+          });
+    } else {
+        var alert = {
+            type: "danger",
+            message: "Please complete all fields."
+        };
+        $('#modalAdd_notif').html(u.AlertBox(alert));
+    }
 }
 
 function modalView(id) {
@@ -156,39 +196,47 @@ function modalEdit(id) {
 
 function Edit(id) {
     var u = new Utility();
-    u.Loading('#modalEdit_notif');
-    var data = {
-        url: "Item.aspx?f=editSave",
-        param: {
-            Id: id,
-            Name: $('#txt_Edit_Name').val(),
-            Price: $('#txt_Edit_Price').val(),
-            Category_Id: $('#PageBody_sel_Edit_Category').val(),
-            Unit_Id: $('#PageBody_sel_Edit_Unit').val()
+    if (CheckInput('edit')) {
+        u.Loading('#modalEdit_notif');
+        var data = {
+            url: "Item.aspx?f=editSave",
+            param: {
+                Id: id,
+                Name: $('#txt_Edit_Name').val(),
+                Price: $('#txt_Edit_Price').val(),
+                Category_Id: $('#PageBody_sel_Edit_Category').val(),
+                Unit_Id: $('#PageBody_sel_Edit_Unit').val()
+            }
         }
-    }
 
-    u.SendData(data)
-      .done(function (r) {
-          if (r.Success) {
-              var alert = {
-                  type: "success",
-                  message: r.Message
-              };
-              $('#modalEdit_notif').html(u.AlertBox(alert));
-              var table = $('#dataTable').DataTable();
-              table.ajax.reload(null, false);
-          } else {
-              var alert = {
-                  type: "danger",
-                  title: r.Title,
-                  message: r.Message
-              };
-              $('#modalEdit_notif').html(u.AlertBox(alert));
-          }
-      }).fail(function () {
-          $('#modalEdit_notif').html(u.AlertServerFailed());
-      });
+        u.SendData(data)
+          .done(function (r) {
+              if (r.Success) {
+                  var alert = {
+                      type: "success",
+                      message: r.Message
+                  };
+                  $('#modalEdit_notif').html(u.AlertBox(alert));
+                  var table = $('#dataTable').DataTable();
+                  table.ajax.reload(null, false);
+              } else {
+                  var alert = {
+                      type: "danger",
+                      title: r.Title,
+                      message: r.Message
+                  };
+                  $('#modalEdit_notif').html(u.AlertBox(alert));
+              }
+          }).fail(function () {
+              $('#modalEdit_notif').html(u.AlertServerFailed());
+          });
+    } else {
+        var alert = {
+            type: "danger",
+            message: "Please complete all fields."
+        };
+        $('#modalEdit_notif').html(u.AlertBox(alert));
+    }
 }
 
 function modalDelete(id) {
@@ -225,7 +273,6 @@ function modalDelete(id) {
 }
 
 function Delete(id) {
-
     var u = new Utility();
     u.Loading('#modalDelete_notif');
     var data = {

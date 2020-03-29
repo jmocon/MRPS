@@ -48,51 +48,109 @@ function InitializeDatatable() {
     }, 30000);
 }
 
-function Add() {
-    var u = new Utility();
-    u.Loading('#modalAdd_notif');
-    var data = {
-        url: "Purchase.aspx?f=add",
-        param: {
-            Type: $('#PageBody_sel_Add_Type').val(),
-            Item_Id: $('#PageBody_sel_Add_Item').val(),
-            DatePurchased: $('#txt_Add_DatePurchased').val(),
-            Supplier_Id: $('#PageBody_sel_Add_Supplier').val(),
-            Price: $('#txt_Add_Price').val(),
-            Quantity: $('#txt_Add_Quantity').val(),
-            Unit_Id: $('#PageBody_sel_Add_Unit').val()
+function CheckInput(com) {
+    if (com == 'add') {
+        if (!$('#PageBody_sel_Add_Type').val()) {
+            return false;
+        }
+        if (!$('#PageBody_sel_Add_Item').val()) {
+            return false;
+        }
+        if (!$('#txt_Add_DatePurchased').val()) {
+            return false;
+        }
+        if (!$('#PageBody_sel_Add_Supplier').val()) {
+            return false;
+        }
+        if (!$('#txt_Add_Price').val()) {
+            return false;
+        }
+        if (!$('#txt_Add_Quantity').val()) {
+            return false;
+        }
+        if (!$('#PageBody_sel_Add_Unit').val()) {
+            return false;
+        }
+    } else if (com == 'edit') {
+        if (!$('#PageBody_sel_Edit_Type').val()) {
+            return false;
+        }
+        if (!$('#PageBody_sel_Edit_Item').val()) {
+            return false;
+        }
+        if (!$('#txt_Edit_DatePurchased').val()) {
+            return false;
+        }
+        if (!$('#PageBody_sel_Edit_Supplier').val()) {
+            return false;
+        }
+        if (!$('#txt_Edit_Price').val()) {
+            return false;
+        }
+        if (!$('#txt_Edit_Quantity').val()) {
+            return false;
+        }
+        if (!$('#PageBody_sel_Edit_Unit').val()) {
+            return false;
         }
     }
 
-    u.SendData(data)
-      .done(function (r) {
-          if (r.Success) {
-              var alert = {
-                  type: "success",
-                  message: r.Message
-              };
-              $('#modalAdd_notif').html(u.AlertBox(alert));
-              var table = $('#dataTable').DataTable();
-              table.ajax.reload(null, false);
+    return true;
+}
 
-              $('#PageBody_sel_Add_Type').val($('#PageBody_sel_Add_Type option:first').val());
-              $('#PageBody_sel_Add_Item').val($('#PageBody_sel_Add_Item option:first').val());
-              $('#txt_Add_DatePurchased').val("");
-              $('#PageBody_sel_Add_Supplier').val($('#PageBody_sel_Add_Supplier option:first').val());
-              $('#txt_Add_Price').val("");
-              $('#txt_Add_Quantity').val("");
-              $('#PageBody_sel_Add_Unit').val($('#PageBody_sel_Add_Unit option:first').val());
-          } else {
-              var alert = {
-                  type: "danger",
-                  title: r.Title,
-                  message: r.Message
-              };
-              $('#modalAdd_notif').html(u.AlertBox(alert));
-          }
-      }).fail(function () {
-          $('#modalAdd_notif').html(u.AlertServerFailed());
-      });
+function Add() {
+    var u = new Utility();
+    if (CheckInput('add')) {
+        u.Loading('#modalAdd_notif');
+        var data = {
+            url: "Purchase.aspx?f=add",
+            param: {
+                Type: $('#PageBody_sel_Add_Type').val(),
+                Item_Id: $('#PageBody_sel_Add_Item').val(),
+                DatePurchased: $('#txt_Add_DatePurchased').val(),
+                Supplier_Id: $('#PageBody_sel_Add_Supplier').val(),
+                Price: $('#txt_Add_Price').val(),
+                Quantity: $('#txt_Add_Quantity').val(),
+                Unit_Id: $('#PageBody_sel_Add_Unit').val()
+            }
+        }
+
+        u.SendData(data)
+          .done(function (r) {
+              if (r.Success) {
+                  var alert = {
+                      type: "success",
+                      message: r.Message
+                  };
+                  $('#modalAdd_notif').html(u.AlertBox(alert));
+                  var table = $('#dataTable').DataTable();
+                  table.ajax.reload(null, false);
+
+                  $('#PageBody_sel_Add_Type').val($('#PageBody_sel_Add_Type option:first').val());
+                  $('#PageBody_sel_Add_Item').val($('#PageBody_sel_Add_Item option:first').val());
+                  $('#txt_Add_DatePurchased').val("");
+                  $('#PageBody_sel_Add_Supplier').val($('#PageBody_sel_Add_Supplier option:first').val());
+                  $('#txt_Add_Price').val("");
+                  $('#txt_Add_Quantity').val("");
+                  $('#PageBody_sel_Add_Unit').val($('#PageBody_sel_Add_Unit option:first').val());
+              } else {
+                  var alert = {
+                      type: "danger",
+                      title: r.Title,
+                      message: r.Message
+                  };
+                  $('#modalAdd_notif').html(u.AlertBox(alert));
+              }
+          }).fail(function () {
+              $('#modalAdd_notif').html(u.AlertServerFailed());
+          });
+    } else {
+        var alert = {
+            type: "danger",
+            message: "Please complete all fields."
+        };
+        $('#modalAdd_notif').html(u.AlertBox(alert));
+    }
 }
 
 function modalView(id) {
@@ -164,42 +222,50 @@ function modalEdit(id) {
 
 function Edit(id) {
     var u = new Utility();
-    u.Loading('#modalEdit_notif');
-    var data = {
-        url: "Purchase.aspx?f=editSave",
-        param: {
-            Id: id,
-            Type: $('#PageBody_sel_Edit_Type').val(),
-            Item_Id: $('#PageBody_sel_Edit_Item').val(),
-            DatePurchased: $('#txt_Edit_DatePurchased').val(),
-            Supplier_Id: $('#PageBody_sel_Edit_Supplier').val(),
-            Price: $('#txt_Edit_Price').val(),
-            Quantity: $('#txt_Edit_Quantity').val(),
-            Unit_Id: $('#PageBody_sel_Edit_Unit').val()
+    if (CheckInput('edit')) {
+        u.Loading('#modalEdit_notif');
+        var data = {
+            url: "Purchase.aspx?f=editSave",
+            param: {
+                Id: id,
+                Type: $('#PageBody_sel_Edit_Type').val(),
+                Item_Id: $('#PageBody_sel_Edit_Item').val(),
+                DatePurchased: $('#txt_Edit_DatePurchased').val(),
+                Supplier_Id: $('#PageBody_sel_Edit_Supplier').val(),
+                Price: $('#txt_Edit_Price').val(),
+                Quantity: $('#txt_Edit_Quantity').val(),
+                Unit_Id: $('#PageBody_sel_Edit_Unit').val()
+            }
         }
-    }
 
-    u.SendData(data)
-      .done(function (r) {
-          if (r.Success) {
-              var alert = {
-                  type: "success",
-                  message: r.Message
-              };
-              $('#modalEdit_notif').html(u.AlertBox(alert));
-              var table = $('#dataTable').DataTable();
-              table.ajax.reload(null, false);
-          } else {
-              var alert = {
-                  type: "danger",
-                  title: r.Title,
-                  message: r.Message
-              };
-              $('#modalEdit_notif').html(u.AlertBox(alert));
-          }
-      }).fail(function () {
-          $('#modalEdit_notif').html(u.AlertServerFailed());
-      });
+        u.SendData(data)
+          .done(function (r) {
+              if (r.Success) {
+                  var alert = {
+                      type: "success",
+                      message: r.Message
+                  };
+                  $('#modalEdit_notif').html(u.AlertBox(alert));
+                  var table = $('#dataTable').DataTable();
+                  table.ajax.reload(null, false);
+              } else {
+                  var alert = {
+                      type: "danger",
+                      title: r.Title,
+                      message: r.Message
+                  };
+                  $('#modalEdit_notif').html(u.AlertBox(alert));
+              }
+          }).fail(function () {
+              $('#modalEdit_notif').html(u.AlertServerFailed());
+          });
+    } else {
+        var alert = {
+            type: "danger",
+            message: "Please complete all fields."
+        };
+        $('#modalEdit_notif').html(u.AlertBox(alert));
+    }
 }
 
 function modalDelete(id) {

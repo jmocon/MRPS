@@ -3,6 +3,32 @@ $(document).ready(function () {
     InitializeDatatable();
 });
 
+function TypeChange() {
+    var type = $('#PageBody_sel_Add_Type').val();
+    switch (type) {
+        case '0': {
+            $('#txt_Add_Day').empty();
+            $('#txt_Add_Day').append(`<option value="">0</option>`);
+            break;
+        }
+        case '1': {
+            $('#txt_Add_Day').empty();
+            for (var i = 1; i <= 7; i++) {
+                $('#txt_Add_Day').append(`<option value="` + i + `">` + i + `</option>`);
+            }
+            break;
+        }
+        case '2': {
+            $('#txt_Add_Day').empty();
+            for (var i = 1; i <= 30; i++) {
+                $('#txt_Add_Day').append(`<option value="` + i + `">` + i + `</option>`);
+            }
+            break;
+        }
+        default:
+    }
+}
+
 function InitializeDatatable() {
     var table = $('#dataTable').DataTable({
         ajax: "Ajax/Forecast_Datatable.aspx",
@@ -34,52 +60,89 @@ function InitializeDatatable() {
         table.ajax.reload(null, false); // user paging is not reset on reload
     }, 30000);
 }
-
-function Add() {
-    var u = new Utility();
-    u.Loading('#modalAdd_notif');
-    var data = {
-        url: "Forecasts.aspx?f=add",
-        param: {
-            Item_Id: $('#PageBody_sel_Add_Item').val(),
-            Type: $('#PageBody_sel_Add_Type').val(),
-            Day: $('#txt_Add_Day').val(),
-            StartDate: $('#txt_Add_StartDate').val(),
-            EndDate: $('#txt_Add_EndDate').val(),
-
-            Price: $('#txt_Add_Price').val(),
-            Supplier_Id: $('#PageBody_sel_Add_Supplier').val(),
-            Quantity: $('#txt_Add_Quantity').val(),
-            Unit_Id: $('#PageBody_sel_Add_Unit').val()
+function CheckInput(com) {
+    if (com == 'add') {
+        if (!$('#txt_Add_Day').val()) {
+            return false;
+        }
+        if (!$('#txt_Add_StartDate').val()) {
+            return false;
+        }
+        if (!$('#txt_Add_EndDate').val()) {
+            return false;
+        }
+        if (!$('#txt_Add_Price').val()) {
+            return false;
+        }
+        if (!$('#txt_Add_Quantity').val()) {
+            return false;
         }
     }
+    return true;
+}
+function Add() {
+    var u = new Utility();
+    if (CheckInput('add')) {
+        var d1 = new Date($('#txt_Add_StartDate').val());
+        var d2 = new Date($('#txt_Add_EndDate').val());
+        if (d1 > d2) {
+            var alert = {
+                type: "danger",
+                message: "Start Date must be less than End Date"
+            };
+            $('#modalAdd_notif').html(u.AlertBox(alert));
+        } else {
+            u.Loading('#modalAdd_notif');
+            var data = {
+                url: "Forecasts.aspx?f=add",
+                param: {
+                    Item_Id: $('#PageBody_sel_Add_Item').val(),
+                    Type: $('#PageBody_sel_Add_Type').val(),
+                    Day: $('#txt_Add_Day').val(),
+                    StartDate: $('#txt_Add_StartDate').val(),
+                    EndDate: $('#txt_Add_EndDate').val(),
 
-    u.SendData(data)
-      .done(function (r) {
-          if (r.Success) {
-              var alert = {
-                  type: "success",
-                  message: r.Message
-              };
-              $('#modalAdd_notif').html(u.AlertBox(alert));
-              var table = $('#dataTable').DataTable();
-              table.ajax.reload(null, false);
-              $('#PageBody_sel_Add_Item').val($('#PageBody_sel_Add_Item option:first').val());
-              $('#PageBody_sel_Add_Type').val($('#PageBody_sel_Add_Type option:first').val());
-              $('#txt_Add_Day').val("");
-              $('#txt_Add_StartDate').val("");
-              $('#txt_Add_EndDate').val("");
-          } else {
-              var alert = {
-                  type: "danger",
-                  title: r.Title,
-                  message: r.Message
-              };
-              $('#modalAdd_notif').html(u.AlertBox(alert));
-          }
-      }).fail(function () {
-          $('#modalAdd_notif').html(u.AlertServerFailed());
-      });
+                    Price: $('#txt_Add_Price').val(),
+                    Supplier_Id: $('#PageBody_sel_Add_Supplier').val(),
+                    Quantity: $('#txt_Add_Quantity').val(),
+                    Unit_Id: $('#PageBody_sel_Add_Unit').val()
+                }
+            }
+
+            u.SendData(data)
+              .done(function (r) {
+                  if (r.Success) {
+                      var alert = {
+                          type: "success",
+                          message: r.Message
+                      };
+                      $('#modalAdd_notif').html(u.AlertBox(alert));
+                      var table = $('#dataTable').DataTable();
+                      table.ajax.reload(null, false);
+                      $('#PageBody_sel_Add_Item').val($('#PageBody_sel_Add_Item option:first').val());
+                      $('#PageBody_sel_Add_Type').val($('#PageBody_sel_Add_Type option:first').val());
+                      $('#txt_Add_Day').val("");
+                      $('#txt_Add_StartDate').val("");
+                      $('#txt_Add_EndDate').val("");
+                  } else {
+                      var alert = {
+                          type: "danger",
+                          title: r.Title,
+                          message: r.Message
+                      };
+                      $('#modalAdd_notif').html(u.AlertBox(alert));
+                  }
+              }).fail(function () {
+                  $('#modalAdd_notif').html(u.AlertServerFailed());
+              });
+        }
+    } else {
+        var alert = {
+            type: "danger",
+            message: "Please complete all fields."
+        };
+        $('#modalAdd_notif').html(u.AlertBox(alert));
+    }
 }
 
 function modalView(id) {

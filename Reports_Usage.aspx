@@ -7,12 +7,9 @@
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <div>
-      <h1 class="h3 mb-0 text-gray-800">Item List</h1>
-      <p class="mb-4">This page shows the list of all items in the inventory.</p>
+      <h1 class="h3 mb-0 text-gray-800">Usage Report</h1>
+      <p class="mb-4">This page shows the list of all item usage.</p>
     </div>
-    <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#modalAdd">
-      <i class="fas fa-plus fa-sm text-white-50 mr-1"></i>Add new Item
-    </button>
   </div>
 
   <!-- DataTales Example -->

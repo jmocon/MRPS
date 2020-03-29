@@ -77,11 +77,14 @@
             </div>
             <div class="col-4">
               <label>Type</label>
-              <asp:DropDownList ID="sel_Add_Type" class="form-control" runat="server"></asp:DropDownList>
+              <asp:DropDownList ID="sel_Add_Type" onchange="TypeChange()" class="form-control" runat="server"></asp:DropDownList>
             </div>
             <div class="col-4">
               <label>Day<small>(Week 1-7, Month 1-28)</small></label>
-              <input type="number" class="form-control" id="txt_Add_Day" placeholder="Day">
+              <%--<input type="number" class="form-control" id="txt_Add_Day" placeholder="Day">--%>
+              <select class="form-control" id="txt_Add_Day">
+                <option>0</option>
+              </select>
             </div>
           </div>
           <div class="row mb-2">

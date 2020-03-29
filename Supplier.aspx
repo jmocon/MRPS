@@ -87,13 +87,13 @@
             </div>
             <div class="col-6">
               <label>Mobile Number</label>
-              <input type="text" class="form-control" id="txt_Add_MobileNumber" placeholder="Mobile Number">
+              <input type="number" min="0" class="form-control" id="txt_Add_MobileNumber" placeholder="Mobile Number">
             </div>
           </div>
           <div class="row mb-2">
             <div class="col-6">
               <label>Landline</label>
-              <input type="text" class="form-control" id="txt_Add_Landline" placeholder="Landline">
+              <input type="number" min="0" class="form-control" id="txt_Add_Landline" placeholder="Landline">
             </div>
             <div class="col-6">
               <label>Email Address</label>
@@ -194,13 +194,13 @@
             </div>
             <div class="col-6">
               <label>Mobile Number</label>
-              <input type="text" class="form-control" id="txt_Edit_MobileNumber" placeholder="Mobile Number">
+              <input type="number" min="0" class="form-control" id="txt_Edit_MobileNumber" placeholder="Mobile Number">
             </div>
           </div>
           <div class="row mb-2">
             <div class="col-6">
               <label>Landline</label>
-              <input type="text" class="form-control" id="txt_Edit_Landline" placeholder="Landline">
+              <input type="number" min="0" class="form-control" id="txt_Edit_Landline" placeholder="Landline">
             </div>
             <div class="col-6">
               <label>Email Address</label>

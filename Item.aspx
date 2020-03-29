@@ -90,16 +90,6 @@
               <asp:DropDownList ID="sel_Add_Unit" class="form-control" runat="server"></asp:DropDownList>
             </div>
           </div>
-          <div class="row mb-2">
-            <div class="col-6">
-              <label>Critical Level</label>
-              <input type="number" class="form-control" id="txt_Add_Critical_Quantity" placeholder="Price">
-            </div>
-            <div class="col-6">
-              <label>Unit</label>
-              <asp:DropDownList ID="sel_Add_Critical_Unit" class="form-control" runat="server"></asp:DropDownList>
-            </div>
-          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" onclick="Add()">Add</button>
@@ -152,20 +142,6 @@
             <div class="col-6">
               <label>Date Created</label>
               <div class="form-control" style="overflow-y: auto;" id="txt_View_DateCreated">DateCreated</div>
-            </div>
-          </div>
-          <div class="row mb-2">
-
-          </div>
-          <div class="row mb-2">
-            <div class="col-6">
-              <label>Quantity</label>
-              <div class="form-control" id="txt_View_Critical_Quantity">Quantity</div>
-            </div>
-            <div class="col-6">
-              <label>Unit</label>
-              <div class="form-control" style="overflow-y: auto;" id="txt_View_Critical_Unit">Unit</div>
-              <asp:DropDownList ID="DropDownList1" class="form-control" runat="server"></asp:DropDownList>
             </div>
           </div>
         </div>
