@@ -17,7 +17,7 @@ public class Produce
             {
                 new SqlParameter("@Menu_Id",mdl.Menu_Id),
                 new SqlParameter("@Quantity",mdl.Quantity),
-                new SqlParameter("@Status",mdl.Status)
+                new SqlParameter("@ProductionCart_Id",mdl.ProductionCart_Id)
             };
 
         mdl.Id = int.Parse(db.ExecuteScalar(lst, "Production_Add"));
@@ -91,6 +91,16 @@ public class Produce
         Database db = new Database();
         List<SqlParameter> lst = new List<SqlParameter>();
         return db.ExecuteReader(lst, "Production_GetForDatatable");
+    }
+
+    public DataTable GetForDatatable(int cartid)
+    {
+        Database db = new Database();
+        List<SqlParameter> lst = new List<SqlParameter>
+        {
+            new SqlParameter("@ProductionCart_Id",cartid)
+        };
+        return db.ExecuteReader(lst, "Production_GetForDatatableByCartId");
     }
 
     public DataTable GetForDropdown()
@@ -167,6 +177,18 @@ public class Produce
         Database db = new Database();
         return db.ExecuteReader(new List<SqlParameter>(), "Production_LastMonthStats");
     }
+
+    public int Finish(int id)
+    {
+        Database db = new Database();
+
+        List<SqlParameter> lst = new List<SqlParameter>
+        {
+            new SqlParameter("@ProductionCart_Id",id)
+        };
+
+        return int.Parse(db.ExecuteScalar(lst, "Production_Finish"));
+    }
 }
 
 public class ProduceModel
@@ -179,7 +201,10 @@ public class ProduceModel
     public int Menu_Id { get; set; }
     public int Quantity { get; set; }
     public int Status { get; set; }
+    public int ProductionCart_Id { get; set; }
+    public int Confirmed { get; set; }
     public DateTime X_DateCreated { get; set; }
+    public DateTime X_Done { get; set; }
 }
 
 public class ProduceViewModel
@@ -189,6 +214,7 @@ public class ProduceViewModel
     }
 
     public int Id { get; set; }
+    public int ProductionCart_Id { get; set; }
     public string Menu { get; set; }
     public int Quantity { get; set; }
     public string Status { get; set; }

@@ -38,12 +38,7 @@ public partial class Produces : System.Web.UI.Page
             new DropdownModel {Value = "3", Text = "Overdue"},
             new DropdownModel {Value = "4", Text = "Done"}
         };
-
-        sel_Add_Status.DataSource = lst;
-        sel_Add_Status.DataValueField = "Value";
-        sel_Add_Status.DataTextField = "Text";
-        sel_Add_Status.DataBind();
-
+        
         sel_Edit_Status.DataSource = lst;
         sel_Edit_Status.DataValueField = "Value";
         sel_Edit_Status.DataTextField = "Text";

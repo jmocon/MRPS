@@ -9,7 +9,7 @@ public partial class Login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        Session["id"] = "0";
     }
 
     protected void btnLogin_Click(object sender, EventArgs e)
@@ -17,8 +17,12 @@ public partial class Login : System.Web.UI.Page
         string uname = txtUsername.Text;
         string pword = txtPassword.Text;
 
-        if (uname == "admin" && pword == "admin")
+        User clsUser = new User();
+
+
+        if (clsUser.Login(uname,pword))
         {
+            Session["id"] = "1";
             Response.Redirect("Dashboard.aspx");
         }
         else

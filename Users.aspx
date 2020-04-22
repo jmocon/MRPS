@@ -1,17 +1,17 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Item.aspx.cs" Inherits="ItemList" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Users.aspx.cs" Inherits="Users" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="PageHead" runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="PageHead" Runat="Server">
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="PageBody" runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="PageBody" Runat="Server">
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <div>
-      <h1 class="h3 mb-0 text-gray-800">Item List</h1>
-      <p class="mb-4">This page shows the list of all items in the inventory.</p>
+      <h1 class="h3 mb-0 text-gray-800">User List</h1>
+      <p class="mb-4">This page shows the list of all users.</p>
     </div>
     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#modalAdd">
-      <i class="fas fa-plus fa-sm text-white-50 mr-1"></i>Add new Item
+      <i class="fas fa-plus fa-sm text-white-50 mr-1"></i>Add new User
     </button>
   </div>
 
@@ -23,28 +23,19 @@
           <thead>
             <tr>
               <th>Name</th>
-              <th>Price</th>
-              <th>Category</th>
-              <th>Quantity</th>
-              <th>Unit</th>
+              <th>Username</th>
               <th>Action</th>
             </tr>
           </thead>
           <tfoot>
             <tr>
               <th>Name</th>
-              <th>Price</th>
-              <th>Category</th>
-              <th>Quantity</th>
-              <th>Unit</th>
+              <th>Username</th>
               <th>Action</th>
             </tr>
           </tfoot>
           <tbody>
             <tr>
-              <td></td>
-              <td></td>
-              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -60,7 +51,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">New Item</h5>
+          <h5 class="modal-title">New User</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -71,40 +62,19 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-6">
+            <div class="col-12">
               <label>Name</label>
               <input type="text" class="form-control" id="txt_Add_Name" placeholder="Name">
             </div>
-            <div class="col-6">
-              <label>Price</label>
-              <input type="number" class="form-control" id="txt_Add_Price" placeholder="Price">
-            </div>
           </div>
           <div class="row mb-2">
             <div class="col-6">
-              <label>Category</label>
-              <asp:DropDownList ID="sel_Add_Category" class="form-control" runat="server"></asp:DropDownList>
+              <label>Username</label>
+              <input type="text" class="form-control" id="txt_Add_Username" placeholder="Username">
             </div>
             <div class="col-6">
-              <label>Unit</label>
-              <asp:DropDownList ID="sel_Add_Unit" class="form-control" runat="server"></asp:DropDownList>
-            </div>
-          </div>
-          <hr />
-          <div class="row mb-2">
-            <div class="col-12 text-center">
-              <label class="m-0">Critical Level</label>
-            </div>
-          </div>
-          <hr />
-          <div class="row mb-2">
-            <div class="col-6">
-              <label>Quantity</label>
-              <input type="number" class="form-control" id="txt_Add_C_Quantity" placeholder="Quantity">
-            </div>
-            <div class="col-6">
-              <label>Unit</label>
-              <asp:DropDownList ID="sel_Add_C_Unit" class="form-control" runat="server"></asp:DropDownList>
+              <label>Password</label>
+              <input type="password" class="form-control" id="txt_Add_Password"  placeholder="Password">
             </div>
           </div>
         </div>
@@ -121,7 +91,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Item Details</h5>
+          <h5 class="modal-title">User Details</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -132,50 +102,15 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-6">
+            <div class="col-12">
               <label>Name</label>
               <div class="form-control" id="txt_View_Name">Name</div>
             </div>
-            <div class="col-6">
-              <label>Price</label>
-              <div class="form-control" id="txt_View_Price">Price</div>
-            </div>
           </div>
           <div class="row mb-2">
-            <div class="col-6">
-              <label>Category</label>
-              <div class="form-control" id="txt_View_Category">Category</div>
-            </div>
-            <div class="col-6">
-              <label>Unit</label>
-              <div class="form-control" id="txt_View_Unit">Unit</div>
-            </div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-6">
-              <label>Quantity</label>
-              <div class="form-control" id="txt_View_Quantity">Quantity</div>
-            </div>
-            <div class="col-6">
-              <label>Date Created</label>
-              <div class="form-control" style="overflow-y: auto;" id="txt_View_DateCreated">DateCreated</div>
-            </div>
-          </div>
-          <hr />
-          <div class="row mb-2">
-            <div class="col-12 text-center">
-              <label class="m-0">Critical Level</label>
-            </div>
-          </div>
-          <hr />
-          <div class="row mb-2">
-            <div class="col-6">
-              <label>Quantity</label>
-              <div class="form-control" id="txt_View_C_Quantity"></div>
-            </div>
-            <div class="col-6">
-              <label>Unit</label>
-              <div class="form-control" id="txt_View_C_Unit"></div>
+            <div class="col-12">
+              <label>Username</label>
+              <div class="form-control" id="txt_View_Username">Username</div>
             </div>
           </div>
         </div>
@@ -191,7 +126,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Edit Item Details</h5>
+          <h5 class="modal-title">Edit User Details</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -202,40 +137,19 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-6">
+            <div class="col-12">
               <label>Name</label>
               <input type="text" class="form-control" id="txt_Edit_Name" placeholder="Name">
             </div>
-            <div class="col-6">
-              <label>Price</label>
-              <input type="number" class="form-control" id="txt_Edit_Price" placeholder="Price">
-            </div>
           </div>
           <div class="row mb-2">
             <div class="col-6">
-              <label>Category</label>
-              <asp:DropDownList ID="sel_Edit_Category" class="form-control" runat="server"></asp:DropDownList>
+              <label>Username</label>
+              <input type="text" class="form-control" id="txt_Edit_Username" placeholder="Username">
             </div>
             <div class="col-6">
-              <label>Unit</label>
-              <asp:DropDownList ID="sel_Edit_Unit" class="form-control" runat="server"></asp:DropDownList>
-            </div>
-          </div>
-          <hr />
-          <div class="row mb-2">
-            <div class="col-12 text-center">
-              <label class="m-0">Critical Level</label>
-            </div>
-          </div>
-          <hr />
-          <div class="row mb-2">
-            <div class="col-6">
-              <label>Quantity</label>
-              <input type="number" class="form-control" id="txt_Edit_C_Quantity" placeholder="Quantity">
-            </div>
-            <div class="col-6">
-              <label>Unit</label>
-              <asp:DropDownList ID="sel_Edit_C_Unit" class="form-control" runat="server"></asp:DropDownList>
+              <label>Password</label>
+              <input type="password" class="form-control" id="txt_Edit_Password">
             </div>
           </div>
         </div>
@@ -252,7 +166,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Delete Item</h5>
+          <h5 class="modal-title">Delete User</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -264,38 +178,20 @@
           </div>
           <div class="row mb-2">
             <div class="col-12">
-              <h2>Delete Item?</h2>
+              <h2>Delete User?</h2>
               <p>All related to this item will be deleted as well. This action cannot be undone</p>
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-6">
+            <div class="col-12">
               <label>Name</label>
               <div class="form-control" id="txt_Delete_Name">Name</div>
             </div>
-            <div class="col-6">
-              <label>Price</label>
-              <div class="form-control" id="txt_Delete_Price">Price</div>
-            </div>
           </div>
           <div class="row mb-2">
-            <div class="col-6">
-              <label>Category</label>
-              <div class="form-control" id="txt_Delete_Category">Category</div>
-            </div>
-            <div class="col-6">
-              <label>Unit</label>
-              <div class="form-control" id="txt_Delete_Unit">Unit</div>
-            </div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-6">
-              <label>Quantity</label>
-              <div class="form-control" id="txt_Delete_Quantity">Quantity</div>
-            </div>
-            <div class="col-6">
-              <label>Date Created</label>
-              <div class="form-control" style="overflow-y: auto;" id="txt_Delete_DateCreated">DateCreated</div>
+            <div class="col-12">
+              <label>Username</label>
+              <div class="form-control" id="txt_Delete_Username">Username</div>
             </div>
           </div>
         </div>
@@ -313,7 +209,7 @@
       <div class="modal-content">
         <div class="modal-body p-0">
           <div class="alert alert-success alert-dismissible fade show m-0" role="alert">
-            Successfully delete item.
+            Successfully delete user.
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -323,10 +219,11 @@
     </div>
   </div>
 </asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="PageScript" runat="Server">
+<asp:Content ID="Content3" ContentPlaceHolderID="PageScript" Runat="Server">
   <script src="vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <script src="js/Utility.js"></script>
-  <script src="js/Item.js"></script>
+  <script src="js/User.js"></script>
 </asp:Content>
+

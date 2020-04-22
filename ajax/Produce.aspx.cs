@@ -45,6 +45,18 @@ public partial class ajax_Produce : System.Web.UI.Page
                 DeleteProduce(jsn.Id);
                 break;
 
+            case ("addCart"):
+                json = clsUtil.GetJson(Request.InputStream);
+                mdl = JsonConvert.DeserializeObject<ProduceModel>(json);
+                AddCart();
+                break;
+
+            case ("finish"):
+                json = clsUtil.GetJson(Request.InputStream);
+                jsn = JsonConvert.DeserializeObject<JsonId>(json);
+                Finish(jsn.Id);
+                break;
+
             default:
                 ResponseModel res = new ResponseModel
                 {
@@ -61,7 +73,8 @@ public partial class ajax_Produce : System.Web.UI.Page
     {
         ResponseModel res = new ResponseModel();
         Produce clsProduce = new Produce();
-        if(clsProduce.IsPossible(mdlProduce.Menu_Id, mdlProduce.Quantity)){
+        if (clsProduce.IsPossible(mdlProduce.Menu_Id, mdlProduce.Quantity))
+        {
             mdlProduce = clsProduce.Add(mdlProduce);
             res.Success = true;
             res.Message = "Successfully Added New Produce";
@@ -140,6 +153,36 @@ public partial class ajax_Produce : System.Web.UI.Page
             res.Success = false;
             res.Message = "No Produce were Deleted.";
         }
+        string output = JsonConvert.SerializeObject(res);
+        Response.Write(output);
+    }
+
+    private void AddCart()
+    {
+        ResponseModel res = new ResponseModel();
+        ProductionCart cls = new ProductionCart();
+        int id = cls.Add();
+        if (id > 0)
+        {
+            res.Success = true;
+            res.Message = id.ToString();
+        }
+        else
+        {
+            res.Success = false;
+            res.Message = "No Produce Cart were Created.";
+        }
+        string output = JsonConvert.SerializeObject(res);
+        Response.Write(output);
+    }
+
+    private void Finish(int id)
+    {
+        ResponseModel res = new ResponseModel();
+        Produce cls = new Produce();
+        cls.Finish(id);
+        res.Success = true;
+        res.Message = id.ToString();
         string output = JsonConvert.SerializeObject(res);
         Response.Write(output);
     }

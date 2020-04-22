@@ -121,7 +121,10 @@ public class Item
             Category = dr["Category"].ToString(),
             Quantity = decimal.Parse(dr["Quantity"].ToString()),
             Unit = dr["Unit"].ToString(),
-            DateCreated = Convert.ToDateTime(dr["DateCreated"].ToString()).ToString("MMMM d, yyyy hh:mm tt")
+            DateCreated = Convert.ToDateTime(dr["DateCreated"].ToString()).ToString("MMMM d, yyyy hh:mm tt"),
+            Critical_Quantity = decimal.Parse(dr["Critical_Quantity"].ToString()),
+            Critical_Unit = dr["Critical_Unit"].ToString(),
+
         };
 
         return mdl;
@@ -197,4 +200,24 @@ public class ItemViewModel
     public decimal Quantity { get; set; }
     public string Unit { get; set; }
     public string DateCreated { get; set; }
+    public decimal Critical_Quantity { get; set; }
+    public string Critical_Unit { get; set; }
+}
+
+public class ItemCriticalModel
+{
+    public ItemCriticalModel()
+    {
+    }
+
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+    public int Category_Id { get; set; }
+    public int Unit_Id { get; set; }
+    public decimal Critical_Quantity { get; set; }
+    public int Critical_Unit_Id { get; set; }
+    public DateTime X_DateCreated { get; set; }
+    public bool X_Archived { get; set; }
+    public bool X_Deleted { get; set; }
 }

@@ -65,6 +65,12 @@ function CheckInput(com) {
         if (!$('#PageBody_sel_Add_Unit').val()) {
             return false;
         }
+        if (!$('#txt_Add_C_Quantity').val()) {
+            return false;
+        }
+        if (!$('#PageBody_sel_Add_C_Unit').val()) {
+            return false;
+        }
     } else if (com == 'edit') {
         if (!$('#txt_Edit_Name').val()) {
             return false;
@@ -93,7 +99,9 @@ function Add() {
                 Name: $('#txt_Add_Name').val(),
                 Price: $('#txt_Add_Price').val(),
                 Category_Id: $('#PageBody_sel_Add_Category').val(),
-                Unit_Id: $('#PageBody_sel_Add_Unit').val()
+                Unit_Id: $('#PageBody_sel_Add_Unit').val(),
+                Critical_Quantity: $('#txt_Add_C_Quantity').val(),
+                Critical_Unit_Id: $('#PageBody_sel_Add_C_Unit').val()
             }
         }
 
@@ -111,6 +119,8 @@ function Add() {
                   $('#txt_Add_Price').val("");
                   $('#PageBody_sel_Add_Category').val($('#PageBody_sel_Add_Category option:first').val());
                   $('#PageBody_sel_Add_Unit').val($('#PageBody_sel_Add_Unit option:first').val());
+                  $('#txt_Add_C_Quantity').val("");
+                  $('#PageBody_sel_Add_C_Unit').val($('#PageBody_sel_Add_C_Unit option:first').val());
               } else {
                   var alert = {
                       type: "danger",
@@ -150,6 +160,8 @@ function modalView(id) {
               $('#txt_View_Unit').html(r.Model.Unit);
               $('#txt_View_Quantity').html(r.Model.Quantity);
               $('#txt_View_DateCreated').html(r.Model.DateCreated);
+              $('#txt_View_C_Quantity').html(r.Model.Critical_Quantity);
+              $('#txt_View_C_Unit').html(r.Model.Critical_Unit);
           } else {
               var alert = {
                   type: "danger",
@@ -180,6 +192,8 @@ function modalEdit(id) {
               $('#txt_Edit_Price').val(r.Model.Price);
               $('#PageBody_sel_Edit_Category').val(r.Model.Category_Id);
               $('#PageBody_sel_Edit_Unit').val(r.Model.Unit_Id);
+              $('#txt_Edit_C_Quantity').val(r.Model.Critical_Quantity);
+              $('#sel_Edit_C_Unit').val(r.Model.Critical_Unit_Id);
               $("#btn_Edit").attr("onclick", "Edit(" + r.Model.Id + ")");
           } else {
               var alert = {
@@ -205,7 +219,9 @@ function Edit(id) {
                 Name: $('#txt_Edit_Name').val(),
                 Price: $('#txt_Edit_Price').val(),
                 Category_Id: $('#PageBody_sel_Edit_Category').val(),
-                Unit_Id: $('#PageBody_sel_Edit_Unit').val()
+                Unit_Id: $('#PageBody_sel_Edit_Unit').val(),
+                Critical_Quantity: $('#txt_Edit_C_Quantity').val(),
+                Critical_Unit_Id: $('#PageBody_sel_Edit_C_Unit').val()
             }
         }
 

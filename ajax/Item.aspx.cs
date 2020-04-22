@@ -12,13 +12,14 @@ public partial class ajax_Item : System.Web.UI.Page
         string json = "";
         JsonId jsn = new JsonId();
         ItemModel mdl = new ItemModel();
+        ItemCriticalModel mdlC = new ItemCriticalModel();
 
         switch (Request.QueryString["f"])
         {
             case ("add"):
                 json = clsUtil.GetJson(Request.InputStream);
-                mdl = JsonConvert.DeserializeObject<ItemModel>(json);
-                AddItem(mdl);
+                mdlC = JsonConvert.DeserializeObject<ItemCriticalModel>(json);
+                AddItem(mdlC);
                 break;
 
             case ("view"):
@@ -35,8 +36,8 @@ public partial class ajax_Item : System.Web.UI.Page
 
             case ("editSave"):
                 json = clsUtil.GetJson(Request.InputStream);
-                mdl = JsonConvert.DeserializeObject<ItemModel>(json);
-                EditSaveItem(mdl);
+                mdlC = JsonConvert.DeserializeObject<ItemCriticalModel>(json);
+                EditSaveItem(mdlC);
                 break;
 
             case ("delete"):
@@ -57,10 +58,23 @@ public partial class ajax_Item : System.Web.UI.Page
         }
     }
 
-    private void AddItem(ItemModel mdlItem)
+    private void AddItem(ItemCriticalModel mdlItemC)
     {
         ResponseModel res = new ResponseModel();
         Item clsItem = new Item();
+        CriticalLevel clsCritical = new CriticalLevel();
+        ItemModel mdlItem = new ItemModel
+        {
+            Name = mdlItemC.Name,
+            Price = mdlItemC.Price,
+            Category_Id = mdlItemC.Category_Id,
+            Unit_Id = mdlItemC.Unit_Id
+        };
+        CriticalLevelModel mdlCritical = new CriticalLevelModel
+        {
+            Quantity = mdlItemC.Critical_Quantity,
+            Unit_Id = mdlItemC.Critical_Unit_Id
+        };
         if (clsItem.IsNameExist(mdlItem.Name))
         {
             res.Success = false;
@@ -69,6 +83,9 @@ public partial class ajax_Item : System.Web.UI.Page
         else
         {
             mdlItem = clsItem.Add(mdlItem);
+            mdlCritical.Item_Id = mdlItem.Id;
+            clsCritical.Delete(mdlCritical.Item_Id);
+            mdlCritical = clsCritical.Add(mdlCritical);
             res.Success = true;
             res.Message = "Successfully Added New Item";
             res.Model = mdlItem;
@@ -82,6 +99,7 @@ public partial class ajax_Item : System.Web.UI.Page
         ResponseModel res = new ResponseModel();
         Item clsItem = new Item();
         ItemViewModel mdlItem = clsItem.GetViewById(id);
+        
         res.Success = true;
         res.Message = "Successfully Retrieved Item";
         res.Model = mdlItem;
@@ -94,19 +112,51 @@ public partial class ajax_Item : System.Web.UI.Page
     {
         ResponseModel res = new ResponseModel();
         Item clsItem = new Item();
+        CriticalLevel clsCL = new CriticalLevel();
         ItemModel mdlItem = clsItem.GetById(id);
+        CriticalLevelModel mdlCL = clsCL.GetByItem_Id(id);
+        ItemCriticalModel mdl = new ItemCriticalModel
+        {
+            Id = mdlItem.Id,
+            Name = mdlItem.Name,
+            Price = mdlItem.Price,
+            Category_Id = mdlItem.Category_Id,
+            Unit_Id = mdlItem.Unit_Id,
+            X_DateCreated = mdlItem.X_DateCreated,
+            X_Archived = mdlItem.X_Archived,
+            X_Deleted = mdlItem.X_Deleted,
+            Critical_Quantity = mdlCL.Quantity,
+            Critical_Unit_Id = mdlCL.Unit_Id
+        };
         res.Success = true;
         res.Message = "Successfully Retrieved Item";
-        res.Model = mdlItem;
+        res.Model = mdl;
 
         string output = JsonConvert.SerializeObject(res);
         Response.Write(output);
     }
 
-    private void EditSaveItem(ItemModel mdlItem)
+    private void EditSaveItem(ItemCriticalModel mdlIC)
     {
         ResponseModel res = new ResponseModel();
         Item clsItem = new Item();
+        ItemModel mdlItem = new ItemModel
+        {
+            Id = mdlIC.Id,
+            Name = mdlIC.Name,
+            Price = mdlIC.Price,
+            Category_Id = mdlIC.Category_Id,
+            Unit_Id = mdlIC.Unit_Id,
+            X_DateCreated = mdlIC.X_DateCreated,
+            X_Archived = mdlIC.X_Archived,
+            X_Deleted = mdlIC.X_Deleted,
+        };
+        CriticalLevelModel mdlCL = new CriticalLevelModel
+        {
+            Item_Id = mdlIC.Id,
+            Quantity = mdlIC.Critical_Quantity,
+            Unit_Id = mdlIC.Critical_Unit_Id
+        };
         if (clsItem.IsNameExist(mdlItem.Id, mdlItem.Name))
         {
             res.Success = false;
@@ -117,6 +167,9 @@ public partial class ajax_Item : System.Web.UI.Page
             int affected = clsItem.Edit(mdlItem);
             if (affected > 0)
             {
+                CriticalLevel clsCL = new CriticalLevel();
+                clsCL.Delete(mdlCL.Item_Id);
+                mdlCL = clsCL.Add(mdlCL);
                 res.Success = true;
                 res.Message = "Successfully Updated Item";
                 res.Model = mdlItem;
@@ -139,6 +192,8 @@ public partial class ajax_Item : System.Web.UI.Page
             int affected = clsItem.Delete(id);
             if (affected > 0)
             {
+                CriticalLevel clsCL = new CriticalLevel();
+                clsCL.Delete(id);
                 res.Success = true;
                 res.Message = "Item Successfully Deleted";
             }

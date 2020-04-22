@@ -31,10 +31,20 @@ public partial class ItemList : System.Web.UI.Page
         sel_Add_Unit.DataValueField = "Id";
         sel_Add_Unit.DataTextField = "Name";
         sel_Add_Unit.DataBind();
-        
+
+        sel_Add_C_Unit.DataSource = cls.Get();
+        sel_Add_C_Unit.DataValueField = "Id";
+        sel_Add_C_Unit.DataTextField = "Name";
+        sel_Add_C_Unit.DataBind();
+
         sel_Edit_Unit.DataSource = cls.Get();
         sel_Edit_Unit.DataValueField = "Id";
         sel_Edit_Unit.DataTextField = "Name";
         sel_Edit_Unit.DataBind();
+
+        sel_Edit_C_Unit.DataSource = cls.Get();
+        sel_Edit_C_Unit.DataValueField = "Id";
+        sel_Edit_C_Unit.DataTextField = "Name";
+        sel_Edit_C_Unit.DataBind();
     }
 }

@@ -47,7 +47,7 @@
                       <asp:TextBox ID="txtUsername" class="form-control form-control-user" runat="server" placeholder="Username"></asp:TextBox>
                     </div>
                     <div class="form-group">
-                      <asp:TextBox ID="txtPassword" class="form-control form-control-user" runat="server" placeholder="Password"></asp:TextBox>
+                      <asp:TextBox type="password" ID="txtPassword" class="form-control form-control-user" runat="server" placeholder="Password"></asp:TextBox>
                     </div>
                     <asp:Button ID="btnLogin" runat="server" Text="Login" class="btn btn-primary btn-user btn-block" OnClick="btnLogin_Click" />
                   </form>

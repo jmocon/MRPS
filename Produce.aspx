@@ -11,8 +11,8 @@
       <h1 class="h3 mb-2 text-gray-800">Produce List</h1>
       <p class="mb-4">This page shows the list of all the transactions of items.</p>
     </div>
-    <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#modalAdd">
-      <i class="fas fa-plus fa-sm text-white-50 mr-1"></i>Add new Item
+    <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#modalAdd" onclick="AddProduceCart()">
+      <i class="fas fa-plus fa-sm text-white-50 mr-1"></i>Add Produce
     </button>
   </div>
 
@@ -22,6 +22,7 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
+              <th>Purchase Id</th>
               <th>Menu</th>
               <th>Quantity</th>
               <th>Status</th>
@@ -30,6 +31,7 @@
           </thead>
           <tfoot>
             <tr>
+              <th>Purchase Id</th>
               <th>Menu</th>
               <th>Quantity</th>
               <th>Status</th>
@@ -38,6 +40,7 @@
           </tfoot>
           <tbody>
             <tr>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -54,7 +57,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">New Item</h5>
+          <h5 class="modal-title">New Order</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -65,24 +68,46 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-12">
+            <div class="col-6">
               <label>Menu</label>
               <asp:DropDownList ID="sel_Add_Menu" class="form-control" runat="server"></asp:DropDownList>
             </div>
-          </div>
-          <div class="row mb-2">
             <div class="col-6">
               <label>Quantity</label>
               <input type="number" id="txt_Add_Quantity" class="form-control" placeholder="Quantity">
             </div>
-            <div class="col-6">
-              <label>Status</label>
-              <asp:DropDownList ID="sel_Add_Status" class="form-control" runat="server"></asp:DropDownList>
+          </div>
+          <div class="row mb-2">
+            <div class="col-12">
+              <button type="button" class="btn btn-primary" onclick="Add()">Add</button>
+            </div>
+          </div>
+          <hr />
+          <div class="row mb-2">
+            <div class="col-12">
+              <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Menu</th>
+                    <th>Quantity</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Menu</th>
+                    <th>Quantity</th>
+                    <th>Action</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="Add()">Add</button>
+          <button type="button" class="btn btn-primary" onclick="Finish()">Finish</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>

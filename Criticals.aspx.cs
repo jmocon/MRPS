@@ -27,13 +27,31 @@ public partial class Criticals : System.Web.UI.Page
         {
             decimal q = decimal.Parse(dr["Quantity"].ToString());
             decimal n = decimal.Parse(dr["Needs"].ToString());
+            decimal c = decimal.Parse(dr["Critical"].ToString());
 
-            if (q < n)
+            if (q < n || q < c)
             {
                 TableRow tr = new TableRow();
                 tr.Cells.Add(new TableCell { Text = dr["Name"].ToString() });
                 tr.Cells.Add(new TableCell { Text = dr["Quantity"].ToString() });
-                tr.Cells.Add(new TableCell { Text = dr["Needs"].ToString() });
+                if (n < c)
+                {
+                    tr.Cells.Add(new TableCell { Text = dr["Critical"].ToString() });
+                }
+                else
+                {
+                    CriticalLevel clsCL = new CriticalLevel();
+                    CriticalLevelModel mdlCL = new CriticalLevelModel
+                    {
+                        Item_Id = int.Parse(dr["Id"].ToString()),
+                        Quantity = decimal.Parse(dr["Needs"].ToString()),
+                        Unit_Id = int.Parse(dr["Unit"].ToString())
+                    };
+
+                    clsCL.Delete(int.Parse(dr["Id"].ToString()));
+                    clsCL.Add(mdlCL);
+                    tr.Cells.Add(new TableCell { Text = dr["Needs"].ToString() });
+                }
                 tbl_critical.Rows.Add(tr);
             }
         }
