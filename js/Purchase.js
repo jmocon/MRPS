@@ -13,16 +13,8 @@ function InitializeDatatable() {
             { "data": "Type" },
             { "data": "Price" },
             { "data": "Supplier" },
-            {
-                "data": "Quantity",
-                "render": function (data, type, row, meta) {
-                    if (data === null) {
-                        return 0;
-                    };
-                    return data;
-                }
-            },
-            { "data": "Unit" },
+            { "data": "Recieved" },
+            { "data": "Purchased" },
             { "data": "DatePurchased" },
             {
                 "data": "Id",

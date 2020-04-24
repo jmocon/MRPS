@@ -26,8 +26,8 @@
               <th>Type</th>
               <th>Price</th>
               <th>Supplier</th>
-              <th>Quantity</th>
-              <th>Unit</th>
+              <th>Recieved</th>
+              <th>Purchased</th>
               <th>Date</th>
               <th>Action</th>
             </tr>
@@ -39,8 +39,8 @@
               <th>Type</th>
               <th>Price</th>
               <th>Supplier</th>
-              <th>Quantity</th>
-              <th>Unit</th>
+              <th>Recieved</th>
+              <th>Purchased</th>
               <th>Date</th>
               <th>Action</th>
             </tr>
