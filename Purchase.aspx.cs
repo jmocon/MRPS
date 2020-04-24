@@ -75,5 +75,10 @@ public partial class Purchases : System.Web.UI.Page
         sel_Edit_Unit.DataValueField = "Id";
         sel_Edit_Unit.DataTextField = "Name";
         sel_Edit_Unit.DataBind();
+
+        sel_Edit_R_Unit.DataSource = cls.GetForDropdown();
+        sel_Edit_R_Unit.DataValueField = "Id";
+        sel_Edit_R_Unit.DataTextField = "Name";
+        sel_Edit_R_Unit.DataBind();
     }
 }

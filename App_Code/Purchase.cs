@@ -24,7 +24,11 @@ public class Purchase
             new SqlParameter("@Supplier_Id",mdl.Supplier_Id),
             new SqlParameter("@Quantity",mdl.Quantity),
             new SqlParameter("@Unit_Id",mdl.Unit_Id),
-            new SqlParameter("@DatePurchased",mdl.DatePurchased)
+            new SqlParameter("@DatePurchased",mdl.DatePurchased),
+            new SqlParameter("@Confirmed",mdl.Confirmed),
+            new SqlParameter("@PurchaseCart_Id",mdl.PurchaseCart_Id),
+            new SqlParameter("@R_Quantity",mdl.R_Quantity),
+            new SqlParameter("@R_Unit_Id",mdl.R_Unit_Id)
         };
 
         mdl.Id = int.Parse(db.ExecuteScalar(lst, "Purchase_Add"));
@@ -45,7 +49,9 @@ public class Purchase
             new SqlParameter("@Supplier_Id",mdl.Supplier_Id),
             new SqlParameter("@Quantity",mdl.Quantity),
             new SqlParameter("@Unit_Id",mdl.Unit_Id),
-            new SqlParameter("@DatePurchased",mdl.DatePurchased)
+            new SqlParameter("@DatePurchased",mdl.DatePurchased),
+            new SqlParameter("@R_Quantity",mdl.R_Quantity),
+            new SqlParameter("@R_Unit_Id",mdl.R_Unit_Id)
         };
 
         return int.Parse(db.ExecuteScalar(lst, "Purchase_Edit"));
@@ -72,7 +78,10 @@ public class Purchase
             Supplier_Id = int.Parse(dr["Supplier_Id"].ToString()),
             Quantity = decimal.Parse(dr["Quantity"].ToString()),
             Unit_Id = int.Parse(dr["Unit_Id"].ToString()),
-            DatePurchased_S = Convert.ToDateTime(dr["DatePurchased"].ToString()).ToString("yyyy-MM-dd")
+            DatePurchased_S = Convert.ToDateTime(dr["DatePurchased"].ToString()).ToString("yyyy-MM-dd"),
+            PurchaseCart_Id = int.Parse(dr["PurchaseCart_Id"].ToString()),
+            R_Quantity = decimal.Parse(dr["R_Quantity"].ToString()),
+            R_Unit_Id = int.Parse(dr["R_Unit_Id"].ToString())
         };
 
         return mdl;
@@ -112,6 +121,16 @@ public class Purchase
         return db.ExecuteReader(lst, "Purchase_GetForDatatable");
     }
 
+    public DataTable GetForDatatable(int cartid)
+    {
+        Database db = new Database();
+        List<SqlParameter> lst = new List<SqlParameter>
+        {
+            new SqlParameter("@PurchaseCart_Id",cartid)
+        };
+        return db.ExecuteReader(lst, "Purchase_GetForDatatableByCartId");
+    }
+
     public int Delete(int id)
     {
         Database db = new Database();
@@ -147,6 +166,21 @@ public class Purchase
         Database db = new Database();
         return int.Parse(db.ExecuteScalar(new List<SqlParameter>(), "Purchase_Subsidized_Count"));
     }
+
+    public int Finish(PurchaseModel mdl)
+    {
+        Database db = new Database();
+
+        List<SqlParameter> lst = new List<SqlParameter>
+        {
+            new SqlParameter("@PurchaseCart_Id",mdl.PurchaseCart_Id),
+            new SqlParameter("@Type",mdl.Type),
+            new SqlParameter("@DatePurchased",mdl.DatePurchased),
+            new SqlParameter("@Supplier_Id",mdl.Supplier_Id)
+        };
+
+        return int.Parse(db.ExecuteScalar(lst, "Purchase_Finish"));
+    }
 }
 
 public class PurchaseModel
@@ -166,6 +200,11 @@ public class PurchaseModel
     public string DatePurchased_S { get; set; }
     public DateTime X_DateCreated { get; set; }
     public int X_User_Id { get; set; }
+    public int X_Deleted { get; set; }
+    public int Confirmed { get; set; }
+    public int PurchaseCart_Id { get; set; }
+    public decimal R_Quantity { get; set; }
+    public int R_Unit_Id { get; set; }
 }
 
 public class PurchaseViewModel
@@ -183,4 +222,7 @@ public class PurchaseViewModel
     public string Unit { get; set; }
     public string DatePurchased { get; set; }
     public string DateCreated { get; set; }
+    public int PurchaseCart_Id { get; set; }
+    public decimal R_Quantity { get; set; }
+    public string R_Unit_Id { get; set; }
 }

@@ -45,6 +45,18 @@ public partial class ajax_Purchase : System.Web.UI.Page
                 DeleteItem(jsn.Id);
                 break;
 
+            case ("addCart"):
+                json = clsUtil.GetJson(Request.InputStream);
+                mdl = JsonConvert.DeserializeObject<PurchaseModel>(json);
+                AddCart();
+                break;
+
+            case ("finish"):
+                json = clsUtil.GetJson(Request.InputStream);
+                mdl = JsonConvert.DeserializeObject<PurchaseModel>(json);
+                Finish(mdl);
+                break;
+
             default:
                 ResponseModel res = new ResponseModel
                 {
@@ -132,6 +144,36 @@ public partial class ajax_Purchase : System.Web.UI.Page
             res.Success = false;
             res.Message = "No Item were Deleted.";
         }
+        string output = JsonConvert.SerializeObject(res);
+        Response.Write(output);
+    }
+
+    private void AddCart()
+    {
+        ResponseModel res = new ResponseModel();
+        PurchaseCart cls = new PurchaseCart();
+        int id = cls.Add();
+        if (id > 0)
+        {
+            res.Success = true;
+            res.Message = id.ToString();
+        }
+        else
+        {
+            res.Success = false;
+            res.Message = "No Purchase Cart were Created.";
+        }
+        string output = JsonConvert.SerializeObject(res);
+        Response.Write(output);
+    }
+
+    private void Finish(PurchaseModel mdl)
+    {
+        ResponseModel res = new ResponseModel();
+        Purchase cls = new Purchase();
+        cls.Finish(mdl);
+        res.Success = true;
+        res.Message = "Purchase Success";
         string output = JsonConvert.SerializeObject(res);
         Response.Write(output);
     }

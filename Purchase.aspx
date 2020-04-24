@@ -10,7 +10,7 @@
       <h1 class="h3 mb-2 text-gray-800">Purchase List</h1>
       <p class="mb-4">This page shows the list of all the transactions of items.</p>
     </div>
-    <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#modalAdd">
+    <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#modalAdd" onclick="AddPurchaseCart()">
       <i class="fas fa-plus fa-sm text-white-50 mr-1"></i>Add new Purchase
     </button>
   </div>
@@ -21,6 +21,7 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
+              <th>Purchase Id</th>
               <th>Item</th>
               <th>Type</th>
               <th>Price</th>
@@ -33,6 +34,7 @@
           </thead>
           <tfoot>
             <tr>
+              <th>Purchase Id</th>
               <th>Item</th>
               <th>Type</th>
               <th>Price</th>
@@ -44,23 +46,11 @@
             </tr>
           </tfoot>
           <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
           </tbody>
         </table>
       </div>
     </div>
   </div>
-
-  
 
   <!-- Add Modal -->
   <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd" aria-hidden="true">
@@ -83,18 +73,19 @@
               <asp:DropDownList ID="sel_Add_Type" class="form-control" runat="server"></asp:DropDownList>
             </div>
             <div class="col-4">
-              <label>Item</label>
-              <asp:DropDownList ID="sel_Add_Item" class="form-control" runat="server"></asp:DropDownList>
-            </div>
-            <div class="col-4">
               <label>Date Purchased</label>
               <input type="date" class="form-control" id="txt_Add_DatePurchased">
             </div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-6">
+            <div class="col-4">
               <label>Supplier</label>
               <asp:DropDownList ID="sel_Add_Supplier" class="form-control" runat="server"></asp:DropDownList>
+            </div>
+          </div>
+          <hr />
+          <div class="row mb-2">
+            <div class="col-6">
+              <label>Item</label>
+              <asp:DropDownList ID="sel_Add_Item" class="form-control" runat="server"></asp:DropDownList>
             </div>
             <div class="col-6">
               <label>Price</label>
@@ -111,9 +102,38 @@
               <asp:DropDownList ID="sel_Add_Unit" class="form-control" runat="server"></asp:DropDownList>
             </div>
           </div>
+          <div class="row mb-2">
+            <div class="col-12">
+              <button type="button" class="btn btn-primary w-100" onclick="Add()">Add</button>
+            </div>
+          </div>
+          <hr />
+          <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th>Action</th>
+              </tr>
+            </tfoot>
+            <tbody>
+            </tbody>
+          </table>
+          <hr />
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="Add()">Add</button>
+          <button type="button" class="btn btn-primary" onclick="Finish()">Finish</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -198,8 +218,8 @@
               <asp:DropDownList ID="sel_Edit_Type" class="form-control" runat="server"></asp:DropDownList>
             </div>
             <div class="col-4">
-              <label>Item</label>
-              <asp:DropDownList ID="sel_Edit_Item" class="form-control" runat="server"></asp:DropDownList>
+              <label>Supplier</label>
+              <asp:DropDownList ID="sel_Edit_Supplier" class="form-control" runat="server"></asp:DropDownList>
             </div>
             <div class="col-4">
               <label>Date Purchased</label>
@@ -208,14 +228,26 @@
           </div>
           <div class="row mb-2">
             <div class="col-6">
-              <label>Supplier</label>
-              <asp:DropDownList ID="sel_Edit_Supplier" class="form-control" runat="server"></asp:DropDownList>
+              <label>Item</label>
+              <asp:DropDownList ID="sel_Edit_Item" class="form-control" runat="server"></asp:DropDownList>
             </div>
             <div class="col-6">
               <label>Price</label>
               <input type="number" class="form-control" id="txt_Edit_Price" placeholder="Price">
             </div>
           </div>
+          <div class="row mb-2">
+            <div class="col-6">
+              <label>Quantity</label>
+              <input type="number" min="1" class="form-control" id="txt_Edit_R_Quantity" placeholder="Quantity">
+            </div>
+            <div class="col-6">
+              <label>Unit</label>
+              <asp:DropDownList ID="sel_Edit_R_Unit" class="form-control" runat="server"></asp:DropDownList>
+            </div>
+          </div>
+          <hr />
+          <h3>Recieved</h3>
           <div class="row mb-2">
             <div class="col-6">
               <label>Quantity</label>

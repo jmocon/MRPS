@@ -1,12 +1,14 @@
 ﻿// Call the dataTables jQuery plugin
 $(document).ready(function () {
     InitializeDatatable();
+    InitializeCart();
 });
 
 function InitializeDatatable() {
     var table = $('#dataTable').DataTable({
         ajax: "Ajax/Purchase_Datatable.aspx",
         columns: [
+            { "data": "PurchaseCart_Id" },
             { "data": "Item" },
             { "data": "Type" },
             { "data": "Price" },
@@ -48,18 +50,56 @@ function InitializeDatatable() {
     }, 30000);
 }
 
+function updateCartTable() {
+    var tableCart = $('#dataTable2').DataTable();
+    tableCart.ajax.url('Ajax/Purchase_Datatable.aspx?Cart=' + sessionStorage.getItem("PurchaseCart")).load();
+}
+
+function InitializeCart(cartid) {
+    var table = $('#dataTable2').DataTable({
+        ajax: "Ajax/Purchase_Datatable.aspx?Cart=0",
+        columns: [
+            { "data": "Item" },
+            { "data": "Price" },
+            {
+                "data": "Quantity",
+                "render": function (data, type, row, meta) {
+                    if (data === null) {
+                        return 0;
+                    };
+                    return data;
+                }
+            },
+            { "data": "Unit" },
+            {
+                "data": "Id",
+                "render": function (data, type, row, meta) {
+                    return `
+                <div class ="btn-group" role="group">
+                    <button type="button" class="btn" onclick= "DeleteFromCart(`+ data + `)">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                `;
+                }
+            }
+        ]
+    });
+}
+
 function CheckInput(com) {
-    if (com == 'add') {
+    if (com == 'finish') {
         if (!$('#PageBody_sel_Add_Type').val()) {
-            return false;
-        }
-        if (!$('#PageBody_sel_Add_Item').val()) {
             return false;
         }
         if (!$('#txt_Add_DatePurchased').val()) {
             return false;
         }
         if (!$('#PageBody_sel_Add_Supplier').val()) {
+            return false;
+        }
+    } else if (com == 'add') {
+        if (!$('#PageBody_sel_Add_Item').val()) {
             return false;
         }
         if (!$('#txt_Add_Price').val()) {
@@ -98,6 +138,32 @@ function CheckInput(com) {
     return true;
 }
 
+function AddPurchaseCart() {
+    var u = new Utility();
+    u.Loading('#modalAdd_notif');
+    var data = {
+        url: "Purchase.aspx?f=addCart",
+        param: {}
+    }
+
+    u.SendData(data)
+        .done(function (r) {
+            if (r.Success) {
+                sessionStorage.setItem("PurchaseCart", r.Message);
+                updateCartTable(r.Message);
+            } else {
+                var alert = {
+                    type: "danger",
+                    title: r.Title,
+                    message: r.Message
+                };
+                $('#modalAdd_notif').html(u.AlertBox(alert));
+            }
+        }).fail(function () {
+            $('#modalAdd_notif').html(u.AlertServerFailed());
+        });
+}
+
 function Add() {
     var u = new Utility();
     if (CheckInput('add')) {
@@ -105,13 +171,17 @@ function Add() {
         var data = {
             url: "Purchase.aspx?f=add",
             param: {
-                Type: $('#PageBody_sel_Add_Type').val(),
                 Item_Id: $('#PageBody_sel_Add_Item').val(),
-                DatePurchased: $('#txt_Add_DatePurchased').val(),
-                Supplier_Id: $('#PageBody_sel_Add_Supplier').val(),
+                Type: 0,
                 Price: $('#txt_Add_Price').val(),
-                Quantity: $('#txt_Add_Quantity').val(),
-                Unit_Id: $('#PageBody_sel_Add_Unit').val()
+                Supplier_Id: $('#PageBody_sel_Add_Supplier').val(),
+                Quantity: 0,
+                Unit_Id: 0,
+                DatePurchased: new Date(),
+                Confirmed: 0,
+                PurchaseCart_Id: sessionStorage.getItem("PurchaseCart"),
+                R_Quantity: $('#txt_Add_Quantity').val(),
+                R_Unit_Id: $('#PageBody_sel_Add_Unit').val()
             }
         }
 
@@ -126,13 +196,11 @@ function Add() {
                   var table = $('#dataTable').DataTable();
                   table.ajax.reload(null, false);
 
-                  $('#PageBody_sel_Add_Type').val($('#PageBody_sel_Add_Type option:first').val());
                   $('#PageBody_sel_Add_Item').val($('#PageBody_sel_Add_Item option:first').val());
-                  $('#txt_Add_DatePurchased').val("");
-                  $('#PageBody_sel_Add_Supplier').val($('#PageBody_sel_Add_Supplier option:first').val());
                   $('#txt_Add_Price').val("");
                   $('#txt_Add_Quantity').val("");
                   $('#PageBody_sel_Add_Unit').val($('#PageBody_sel_Add_Unit option:first').val());
+                  updateCartTable()
               } else {
                   var alert = {
                       type: "danger",
@@ -206,6 +274,8 @@ function modalEdit(id) {
               $('#txt_Edit_Price').val(r.Model.Price);
               $('#txt_Edit_Quantity').val(r.Model.Quantity);
               $('#PageBody_sel_Edit_Unit').val(r.Model.Unit_Id);
+              $('#txt_Edit_R_Quantity').val(r.Model.R_Quantity);
+              $('#PageBody_sel_Edit_R_Unit').val(r.Model.R_Unit_Id);
               $("#btn_Edit").attr("onclick", "Edit(" + r.Model.Id + ")");
           } else {
               var alert = {
@@ -234,7 +304,9 @@ function Edit(id) {
                 Supplier_Id: $('#PageBody_sel_Edit_Supplier').val(),
                 Price: $('#txt_Edit_Price').val(),
                 Quantity: $('#txt_Edit_Quantity').val(),
-                Unit_Id: $('#PageBody_sel_Edit_Unit').val()
+                Unit_Id: $('#PageBody_sel_Edit_Unit').val(),
+                R_Quantity: $('#txt_Edit_R_Quantity').val(),
+                R_Unit_Id: $('#PageBody_sel_Edit_R_Unit').val()
             }
         }
 
@@ -303,6 +375,39 @@ function modalDelete(id) {
       });
 }
 
+function Finish() {
+    var u = new Utility();
+    u.Loading('#modalAdd_notif');
+    var data = {
+        url: "Purchase.aspx?f=finish",
+        param: {
+            PurchaseCart_Id: sessionStorage.getItem("PurchaseCart"),
+            Type: $('#PageBody_sel_Add_Type').val(),
+            DatePurchased: $('#txt_Add_DatePurchased').val(),
+            Supplier_Id: $('#PageBody_sel_Add_Supplier').val()
+        }
+    }
+
+    u.SendData(data)
+        .done(function (r) {
+            if (r.Success) {
+                var table = $('#dataTable').DataTable();
+                table.ajax.reload(null, false);
+                $('#modalAdd').modal('hide');
+                $('#modalAdd_notif').html("");
+            } else {
+                var alert = {
+                    type: "danger",
+                    title: r.Title,
+                    message: r.Message
+                };
+                $('#modalAdd_notif').html(u.AlertBox(alert));
+            }
+        }).fail(function () {
+            $('#modalAdd_notif').html(u.AlertServerFailed());
+        });
+}
+
 function Delete(id) {
     var u = new Utility();
     u.Loading('#modalDelete_notif');
@@ -319,6 +424,39 @@ function Delete(id) {
               $('#modalDelete').modal('hide');
               $('#modalDeleteSuccess').modal('show');
               var table = $('#dataTable').DataTable();
+              table.ajax.reload(null, false);
+          } else {
+              var alert = {
+                  type: "danger",
+                  title: r.Title,
+                  message: r.Message
+              };
+              $('#modalDelete_notif').html(u.AlertBox(alert));
+          }
+      }).fail(function () {
+          $('#modalDelete_notif').html(u.AlertServerFailed());
+      });
+}
+
+function DeleteFromCart(id) {
+    var u = new Utility();
+    u.Loading('#modalDelete_notif');
+    var data = {
+        url: "Purchase.aspx?f=delete",
+        param: {
+            Id: id
+        }
+    }
+
+    u.SendData(data)
+      .done(function (r) {
+          if (r.Success) {
+              var alert = {
+                  type: "success",
+                  message: "Item Removed"
+              };
+              $('#modalAdd_notif').html(u.AlertBox(alert));
+              var table = $('#dataTable2').DataTable();
               table.ajax.reload(null, false);
           } else {
               var alert = {
