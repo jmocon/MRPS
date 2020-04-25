@@ -36,6 +36,9 @@ public class Produce
             new SqlParameter("@Quantity",mdl.Quantity),
             new SqlParameter("@Status",mdl.Status)
         };
+        //Update Critical Level
+        CriticalLevel cls = new CriticalLevel();
+        cls.UpdateCritical();
 
         return int.Parse(db.ExecuteScalar(lst, "Production_Edit"));
     }
@@ -118,6 +121,9 @@ public class Produce
         {
             new SqlParameter("@Id",id)
         };
+        //Update Critical Level
+        CriticalLevel cls = new CriticalLevel();
+        cls.UpdateCritical();
 
         return int.Parse(db.ExecuteScalar(lst, "Production_Delete"));
     }
@@ -138,6 +144,31 @@ public class Produce
             if (decimal.Parse(dr["Quantity"].ToString()) < 0)
             {
                 result = false;
+            }
+        }
+        return result;
+    }
+
+    public string CheckCritical (int menu_id, int quantity)
+    {
+        Database db = new Database();
+        string result = "";
+
+        List<SqlParameter> lst = new List<SqlParameter>
+        {
+            new SqlParameter("@Menu_Id",menu_id),
+            new SqlParameter("@Quantity",quantity)
+        };
+        DataTable dt = db.ExecuteReader(lst, "Production_NotifForCritical");
+        foreach (DataRow dr in dt.Rows)
+        {
+            if (decimal.Parse(dr["Quantity"].ToString()) <= decimal.Parse(dr["Critical"].ToString()))
+            {
+                if (result != "")
+                {
+                    result += ", ";
+                }
+                result += dr["Item"].ToString();
             }
         }
         return result;
@@ -186,6 +217,9 @@ public class Produce
         {
             new SqlParameter("@ProductionCart_Id",id)
         };
+        //Update Critical Level
+        CriticalLevel cls = new CriticalLevel();
+        cls.UpdateCritical();
 
         return int.Parse(db.ExecuteScalar(lst, "Production_Finish"));
     }

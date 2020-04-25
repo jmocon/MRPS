@@ -40,44 +40,66 @@ function InitializeDatatable() {
         table.ajax.reload(null, false); // user paging is not reset on reload
     }, 30000);
 }
-
-function Add(Menu_Id) {
-    var u = new Utility();
-    u.Loading('#modalAdd_notif');
-    var data = {
-        url: "MenuItem.aspx?f=add",
-        param: {
-            Menu_Id: Menu_Id,
-            Item_Id: $('#PageBody_sel_Add_Item').val(),
-            Quantity: $('#txt_Add_Quantity').val(),
-            Unit_Id: $('#PageBody_sel_Add_Unit').val()
+function CheckInput(com) {
+    if (com == 'add') {
+        if (!$('#PageBody_sel_Add_Item').val()) {
+            return false;
+        }
+        if (!$('#txt_Add_Quantity').val()) {
+            return false;
+        }
+        if (!$('#PageBody_sel_Add_Unit').val()) {
+            return false;
         }
     }
+    return true;
+}
+function Add(Menu_Id) {
+    if (CheckInput('add')) {
+        var u = new Utility();
+        u.Loading('#modalAdd_notif');
+        var data = {
+            url: "MenuItem.aspx?f=add",
+            param: {
+                Menu_Id: Menu_Id,
+                Item_Id: $('#PageBody_sel_Add_Item').val(),
+                Quantity: $('#txt_Add_Quantity').val(),
+                Unit_Id: $('#PageBody_sel_Add_Unit').val()
+            }
+        }
 
-    u.SendData(data)
-      .done(function (r) {
-          if (r.Success) {
-              var alert = {
-                  type: "success",
-                  message: r.Message
-              };
-              $('#modalAdd_notif').html(u.AlertBox(alert));
-              var table = $('#dataTable').DataTable();
-              table.ajax.reload(null, false);
-              $('#txt_Add_Quantity').val("");
-              $('#PageBody_sel_Add_Item').val($('#PageBody_sel_Add_Item option:first').val());
-              $('#PageBody_sel_Add_Unit').val($('#PageBody_sel_Add_Unit option:first').val());
-          } else {
-              var alert = {
-                  type: "danger",
-                  title: r.Title,
-                  message: r.Message
-              };
-              $('#modalAdd_notif').html(u.AlertBox(alert));
-          }
-      }).fail(function () {
-          $('#modalAdd_notif').html(u.AlertServerFailed());
-      });
+        u.SendData(data)
+          .done(function (r) {
+              if (r.Success) {
+                  var alert = {
+                      type: "success",
+                      message: r.Message
+                  };
+                  $('#modalAdd_notif').html(u.AlertBox(alert));
+                  var table = $('#dataTable').DataTable();
+                  table.ajax.reload(null, false);
+                  $('#txt_Add_Quantity').val("");
+                  $('#PageBody_sel_Add_Item').val($('#PageBody_sel_Add_Item option:first').val());
+                  $('#PageBody_sel_Add_Unit').val($('#PageBody_sel_Add_Unit option:first').val());
+              } else {
+                  var alert = {
+                      type: "danger",
+                      title: r.Title,
+                      message: r.Message
+                  };
+                  $('#modalAdd_notif').html(u.AlertBox(alert));
+              }
+          }).fail(function () {
+              $('#modalAdd_notif').html(u.AlertServerFailed());
+          });
+    } else {
+        var u = new Utility();
+        var alert = {
+            type: "danger",
+            message: "Please complete all fields."
+        };
+        $('#modalAdd_notif').html(u.AlertBox(alert));
+    }
 }
 
 function modalEdit(id) {
@@ -96,7 +118,7 @@ function modalEdit(id) {
               $('#txt_Edit_Quantity').val(r.Model.Quantity);
               $('#PageBody_sel_Edit_Item').val(r.Model.Item_Id);
               $('#PageBody_sel_Edit_Unit').val(r.Model.Unit_Id);
-              $("#btn_Edit").attr("onclick", "Edit("+r.Model.Menu_Id+"," + r.Model.Id + ")");
+              $("#btn_Edit").attr("onclick", "Edit(" + r.Model.Menu_Id + "," + r.Model.Id + ")");
           } else {
               var alert = {
                   type: "danger",
@@ -110,7 +132,7 @@ function modalEdit(id) {
       });
 }
 
-function Edit(menu_id,id) {
+function Edit(menu_id, id) {
     var u = new Utility();
     u.Loading('#modalEdit_notif');
     var data = {
@@ -178,7 +200,6 @@ function modalDelete(id) {
 }
 
 function Delete(id) {
-
     var u = new Utility();
     u.Loading('#modalDelete_notif');
     var data = {

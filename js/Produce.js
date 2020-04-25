@@ -155,6 +155,7 @@ function Add() {
                   $('#modalAdd_notif').html(u.AlertBox(alert));
                   var table = $('#dataTable2').DataTable();
                   table.ajax.reload(null, false);
+                  checkCritical($('#PageBody_sel_Add_Menu').val(), $('#txt_Add_Quantity').val());
                   $('#PageBody_sel_Add_Menu').val($('#PageBody_sel_Add_Menu option:first').val());
                   $('#txt_Add_Quantity').val("");
                   $('#PageBody_sel_Add_Status').val($('#PageBody_sel_Add_Status option:first').val());
@@ -170,6 +171,33 @@ function Add() {
               $('#modalAdd_notif').html(u.AlertServerFailed());
           });
     }
+}
+
+function checkCritical(menu_id, quantity) {
+
+    var u = new Utility();
+    var data = {
+        url: "Produce.aspx?f=checkcritical",
+        param: {
+            Menu_Id: $('#PageBody_sel_Add_Menu').val(),
+            Quantity: $('#txt_Add_Quantity').val()
+        }
+    }
+
+    u.SendData(data)
+      .done(function (r) {
+          if (r.Success) {
+          } else {
+              var alert = {
+                  type: "danger",
+                  title: r.Title,
+                  message: "Following item/s are on critical: " + r.Message
+              };
+              $('#modalAdd_notif').append(' ' + u.AlertBox(alert));
+          }
+      }).fail(function () {
+          $('#modalAdd_notif').html(u.AlertServerFailed());
+      });
 }
 
 function modalView(id) {

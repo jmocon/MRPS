@@ -53,6 +53,9 @@ public class Purchase
             new SqlParameter("@R_Quantity",mdl.R_Quantity),
             new SqlParameter("@R_Unit_Id",mdl.R_Unit_Id)
         };
+        //Update Critical Level
+        CriticalLevel cls = new CriticalLevel();
+        cls.UpdateCritical();
 
         return int.Parse(db.ExecuteScalar(lst, "Purchase_Edit"));
     }
@@ -139,6 +142,9 @@ public class Purchase
         {
             new SqlParameter("@Id",id)
         };
+        //Update Critical Level
+        CriticalLevel cls = new CriticalLevel();
+        cls.UpdateCritical();
 
         return int.Parse(db.ExecuteScalar(lst, "Purchase_Delete"));
     }
@@ -178,6 +184,9 @@ public class Purchase
             new SqlParameter("@DatePurchased",mdl.DatePurchased),
             new SqlParameter("@Supplier_Id",mdl.Supplier_Id)
         };
+        //Update Critical Level
+        CriticalLevel cls = new CriticalLevel();
+        cls.UpdateCritical();
 
         return int.Parse(db.ExecuteScalar(lst, "Purchase_Finish"));
     }

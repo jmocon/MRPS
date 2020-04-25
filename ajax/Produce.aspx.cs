@@ -57,6 +57,12 @@ public partial class ajax_Produce : System.Web.UI.Page
                 Finish(jsn.Id);
                 break;
 
+            case ("checkcritical"):
+                json = clsUtil.GetJson(Request.InputStream);
+                mdl = JsonConvert.DeserializeObject<ProduceModel>(json);
+                CheckCritical(mdl);
+                break;
+
             default:
                 ResponseModel res = new ResponseModel
                 {
@@ -84,6 +90,27 @@ public partial class ajax_Produce : System.Web.UI.Page
         {
             res.Success = false;
             res.Message = "Insufficient Item/s";
+        }
+
+        string output = JsonConvert.SerializeObject(res);
+        Response.Write(output);
+    }
+
+    private void CheckCritical(ProduceModel mdlProduce)
+    {
+        ResponseModel res = new ResponseModel();
+        Produce clsProduce = new Produce();
+        string crit = clsProduce.CheckCritical(mdlProduce.Menu_Id, mdlProduce.Quantity);
+        if (crit == "")
+        {
+            mdlProduce = clsProduce.Add(mdlProduce);
+            res.Success = true;
+            res.Message = "No Possible Critical Items";
+        }
+        else
+        {
+            res.Success = false;
+            res.Message = crit;
         }
 
         string output = JsonConvert.SerializeObject(res);

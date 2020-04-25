@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -59,6 +60,60 @@ public class CriticalLevel
             new SqlParameter("@Item_Id",Item_Id)
         };
         return int.Parse(db.ExecuteScalar(lst, "CriticalLevel_Delete"));
+    }
+
+    public void UpdateCritical()
+    {
+        Item cls = new Item();
+
+        foreach (DataRow dr in cls.GetCurrentQuantity().Rows)
+        {
+            decimal r = decimal.Parse(dr["R_Quantity"].ToString());
+            decimal q = decimal.Parse(dr["Quantity"].ToString());
+            decimal n = decimal.Parse(dr["Needs"].ToString());
+            decimal c = decimal.Parse(dr["Critical"].ToString());
+            decimal buy = (n<c)?c:n;
+
+            if (r < n || r < c)
+            {
+                Supplier clsS = new Supplier();
+                DataTable dtS = clsS.GetForDropdown();
+                ItemModel mdlI = cls.GetById(int.Parse(dr["Id"].ToString()));
+                Purchase clsP = new Purchase();
+                PurchaseCart clsPC = new PurchaseCart();
+                PurchaseModel mdlP = new PurchaseModel
+                {
+                    Item_Id = int.Parse(dr["Id"].ToString()),
+                    Type = 0,
+                    Price = mdlI.Price,
+                    Supplier_Id = int.Parse(dtS.Rows[0]["Id"].ToString()),
+                    Quantity = 0,
+                    Unit_Id = int.Parse(dr["Unit"].ToString()),
+                    DatePurchased = DateTime.Now,
+                    Confirmed = 1,
+                    PurchaseCart_Id = clsPC.Add(),
+                    R_Quantity = buy + (buy / 4),
+                    R_Unit_Id = int.Parse(dr["Unit"].ToString())
+                };
+                clsP.Add(mdlP);
+            }
+            if (q < n || q < c)
+            {
+                if (n > c)
+                {
+                    CriticalLevel clsCL = new CriticalLevel();
+                    CriticalLevelModel mdlCL = new CriticalLevelModel
+                    {
+                        Item_Id = int.Parse(dr["Id"].ToString()),
+                        Quantity = decimal.Parse(dr["Needs"].ToString()),
+                        Unit_Id = int.Parse(dr["Unit"].ToString())
+                    };
+
+                    clsCL.Delete(int.Parse(dr["Id"].ToString()));
+                    clsCL.Add(mdlCL);
+                }
+            }
+        }
     }
 }
 

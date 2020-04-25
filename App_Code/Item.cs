@@ -38,6 +38,9 @@ public class Item
             new SqlParameter("@Category_Id",mdl.Category_Id),
             new SqlParameter("@Unit_Id",mdl.Unit_Id)
         };
+        //Update Critical Level
+        CriticalLevel cls = new CriticalLevel();
+        cls.UpdateCritical();
 
         return int.Parse(db.ExecuteScalar(lst, "Item_Edit"));
     }
