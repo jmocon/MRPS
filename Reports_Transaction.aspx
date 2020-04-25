@@ -8,6 +8,7 @@
   <p class="mb-4">
     This page shows the summary of transactions for the month of
     <asp:Label ID="lblCurrentDisplay" runat="server" Text=""></asp:Label>.
+    <a href="PrintSummary.aspx" class="btn btn-primary float-right">Save as PDF</a>
   </p>
 
   <!-- Content Row -->

@@ -17,15 +17,9 @@
     <div class="card-body">
       <div class="row mb-3">
         <div class="col-12">
-          <div class="btn btn-primary" id="cmd" onclick="PrintPDF()">
-            Download PDF
-          </div>
-          <div id="editor"></div>
-          <div id="content">
-     <h3>Hello, this is a H3 tag</h3>
-
-    <p>A paragraph</p>
-</div>
+          <a class="btn btn-primary" id="cmd" href="PrintUsage.aspx" target="_blank">
+            Save as PDF
+          </a>
         </div>
       </div>
       <div class="table-responsive">
