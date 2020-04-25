@@ -8,7 +8,7 @@
   <p class="mb-4">
     This page shows the summary of Late for each month for the Year of
     <asp:Label ID="lblCurrentDisplay" runat="server" Text=""></asp:Label>.
-    <a href="PrintLate.aspx" class="btn btn-primary float-right">Save as PDF</a>
+    <a href="PrintLate.aspx" class="btn btn-primary float-right" target="_blank">Save as PDF</a>
   </p>
   <div class="row">
     <div class="col-md-6">
