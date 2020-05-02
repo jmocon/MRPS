@@ -130,6 +130,34 @@ function CheckInput(com) {
     return true;
 }
 
+$("#PageBody_sel_Add_Item").change(function () {
+    var u = new Utility();
+    u.Loading('#modalAdd_notif');
+    var data = {
+        url: "Item.aspx?f=getunit_idbyid",
+        param: {
+            Id: $('#PageBody_sel_Add_Item').val()
+        }
+    }
+
+    u.SendData(data)
+      .done(function (r) {
+          if (r.Success) {
+              $('#PageBody_sel_Add_Unit').val(r.Message);
+              $('#modalAdd_notif').html('');
+          } else {
+              var alert = {
+                  type: "danger",
+                  title: r.Title,
+                  message: r.Message
+              };
+              $('#modalAdd_notif').html(u.AlertBox(alert));
+          }
+      }).fail(function () {
+          $('#modalAdd_notif').html(u.AlertServerFailed());
+      });
+});
+
 function AddPurchaseCart() {
     var u = new Utility();
     u.Loading('#modalAdd_notif');
@@ -168,7 +196,7 @@ function Add() {
                 Price: $('#txt_Add_Price').val(),
                 Supplier_Id: $('#PageBody_sel_Add_Supplier').val(),
                 Quantity: 0,
-                Unit_Id: 0,
+                Unit_Id: $('#PageBody_sel_Add_Unit').val(),
                 DatePurchased: new Date(),
                 Confirmed: 0,
                 PurchaseCart_Id: sessionStorage.getItem("PurchaseCart"),

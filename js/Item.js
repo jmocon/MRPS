@@ -8,12 +8,12 @@ function InitializeDatatable() {
         ajax: "Ajax/Item_Datatable.aspx",
         columns: [
             { "data": "Name" },
-            {
-                "data": "Price",
-                "render": function (data, type, row, meta) {
-                    return `Php ` + data.toFixed(2);
-                }
-            },
+            //{
+            //    "data": "Price",
+            //    "render": function (data, type, row, meta) {
+            //        return `Php ` + data.toFixed(2);
+            //    }
+            //},
             { "data": "Category" },
             {
                 "data": "Quantity",
@@ -88,7 +88,9 @@ function CheckInput(com) {
 
     return true;
 }
-
+$("#PageBody_sel_Add_Unit").change(function () {
+    $('#PageBody_sel_Add_C_Unit').val($('#PageBody_sel_Add_Unit').val());
+});
 function Add() {
     var u = new Utility();
     if (CheckInput('add')) {

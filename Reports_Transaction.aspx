@@ -6,11 +6,19 @@
   <!-- Page Heading -->
   <h1 class="h3 mb-0 text-gray-800">Reports for Transaction</h1>
   <p class="mb-4">
-    This page shows the summary of transactions for the month of
-    <asp:Label ID="lblCurrentDisplay" runat="server" Text=""></asp:Label>.
-    <a href="PrintSummary.aspx" class="btn btn-primary float-right" target="_blank">Save as PDF</a>
+    This page shows the summary of transactions
+    <a href="PrintSummary.aspx" runat="server" id="btnPrint" class="btn btn-primary float-right" target="_blank">Save as PDF</a>
   </p>
-
+  <div class="row mb-4">
+    <div class="col-lg-3">
+      <label>Start Date</label>
+      <asp:TextBox ID="txt_Start_Date" type="month" CssClass="form-control" runat="server" AutoPostBack="true"></asp:TextBox>
+    </div>
+    <div class="col-lg-3">
+      <label>End Date</label>
+      <asp:TextBox ID="txt_End_Date" type="month" CssClass="form-control" runat="server" AutoPostBack="true"></asp:TextBox>
+    </div>
+  </div>
   <!-- Content Row -->
   <div class="row">
 

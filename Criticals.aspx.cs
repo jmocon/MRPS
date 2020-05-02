@@ -33,10 +33,10 @@ public partial class Criticals : System.Web.UI.Page
             {
                 TableRow tr = new TableRow();
                 tr.Cells.Add(new TableCell { Text = dr["Name"].ToString() });
-                tr.Cells.Add(new TableCell { Text = dr["Quantity"].ToString() });
+                tr.Cells.Add(new TableCell { Text = (dr["Quantity"].ToString() + " " + dr["Unit_Abbr"].ToString()) });
                 if (n < c)
                 {
-                    tr.Cells.Add(new TableCell { Text = dr["Critical"].ToString() });
+                    tr.Cells.Add(new TableCell { Text = (dr["Critical"].ToString() + " " + dr["Unit_Abbr"].ToString()) });
                 }
                 else
                 {
@@ -50,7 +50,7 @@ public partial class Criticals : System.Web.UI.Page
 
                     clsCL.Delete(int.Parse(dr["Id"].ToString()));
                     clsCL.Add(mdlCL);
-                    tr.Cells.Add(new TableCell { Text = dr["Needs"].ToString() });
+                    tr.Cells.Add(new TableCell { Text = (dr["Needs"].ToString() + " " + dr["Unit_Abbr"].ToString()) });
                 }
                 tbl_critical.Rows.Add(tr);
             }

@@ -22,7 +22,9 @@ public partial class Login : System.Web.UI.Page
 
         if (clsUser.Login(uname,pword))
         {
-            Session["id"] = "1";
+            UserModel mdl = clsUser.GetByUsernamePassword(uname, pword);
+            Session["id"] = mdl.Id;
+            Session["name"] = mdl.Name;
             Response.Redirect("Dashboard.aspx");
         }
         else

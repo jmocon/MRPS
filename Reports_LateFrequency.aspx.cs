@@ -9,7 +9,7 @@ public partial class Reports_LateFrequency : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        lblCurrentDisplay.Text = DateTime.Now.ToString("MMMM yyyy");
+        lblCurrentDisplay.Text = DateTime.Now.ToString("yyyy");
         LoadLate();
     }
 

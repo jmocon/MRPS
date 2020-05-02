@@ -15,12 +15,21 @@
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-body">
-      <div class="row mb-3">
-        <div class="col-12">
-          <a class="btn btn-primary" id="cmd" href="PrintUsage.aspx" target="_blank">
-            Save as PDF
+      <div class="row mb-4">
+        <div class="col-lg-3">
+          <label>Start Date</label>
+          <asp:TextBox ID="txt_Start_Date" type="month" CssClass="form-control" runat="server" AutoPostBack="true"></asp:TextBox>
+        </div>
+        <div class="col-lg-3">
+          <label>End Date</label>
+          <asp:TextBox ID="txt_End_Date" type="month" CssClass="form-control" runat="server" AutoPostBack="true"></asp:TextBox>
+        </div>
+        <div class="col-lg-6 ">
+          <a class="btn btn-primary float-right" runat="server" id="btnPrint" href="PrintUsage.aspx" target="_blank">Save as PDF
           </a>
         </div>
+      </div>
+      <div class="row mb-3">
       </div>
       <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -45,14 +54,6 @@
             </tr>
           </tfoot>
           <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
           </tbody>
         </table>
       </div>

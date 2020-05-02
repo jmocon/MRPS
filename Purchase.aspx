@@ -99,7 +99,7 @@
             </div>
             <div class="col-6">
               <label>Unit</label>
-              <asp:DropDownList ID="sel_Add_Unit" class="form-control" runat="server"></asp:DropDownList>
+              <asp:DropDownList ID="sel_Add_Unit" class="form-control" runat="server" disabled="disabled"></asp:DropDownList>
             </div>
           </div>
           <div class="row mb-2">

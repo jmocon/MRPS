@@ -120,8 +120,7 @@ public class Purchase
     public DataTable GetForDatatable()
     {
         Database db = new Database();
-        List<SqlParameter> lst = new List<SqlParameter>();
-        return db.ExecuteReader(lst, "Purchase_GetForDatatable");
+        return db.ExecuteReader(new List<SqlParameter>(), "Purchase_GetForDatatable");
     }
 
     public DataTable GetForDatatable(int cartid)
@@ -149,28 +148,60 @@ public class Purchase
         return int.Parse(db.ExecuteScalar(lst, "Purchase_Delete"));
     }
 
-    public int GetBuyCount()
+    public int GetBuyCount(int StartMonth, int StartYear, int EndMonth, int EndYear)
     {
         Database db = new Database();
-        return int.Parse(db.ExecuteScalar(new List<SqlParameter>(), "Purchase_Buy_Count"));
+        
+        List<SqlParameter> lst = new List<SqlParameter>
+        {
+            new SqlParameter("@StartMonth",StartMonth),
+            new SqlParameter("@StartYear",StartYear),
+            new SqlParameter("@EndMonth",EndMonth),
+            new SqlParameter("@EndYear",EndYear)
+        };
+        return int.Parse(db.ExecuteScalar(lst, "Purchase_Buy_Count"));
     }
 
-    public int GetSoldCount()
+    public int GetSoldCount(int StartMonth, int StartYear, int EndMonth, int EndYear)
     {
         Database db = new Database();
-        return int.Parse(db.ExecuteScalar(new List<SqlParameter>(), "Purchase_Sold_Count"));
+
+        List<SqlParameter> lst = new List<SqlParameter>
+        {
+            new SqlParameter("@StartMonth",StartMonth),
+            new SqlParameter("@StartYear",StartYear),
+            new SqlParameter("@EndMonth",EndMonth),
+            new SqlParameter("@EndYear",EndYear)
+        };
+        return int.Parse(db.ExecuteScalar(lst, "Purchase_Sold_Count"));
     }
 
-    public int GetSpoiledCount()
+    public int GetSpoiledCount(int StartMonth, int StartYear, int EndMonth, int EndYear)
     {
         Database db = new Database();
-        return int.Parse(db.ExecuteScalar(new List<SqlParameter>(), "Purchase_Spoiled_Count"));
+
+        List<SqlParameter> lst = new List<SqlParameter>
+        {
+            new SqlParameter("@StartMonth",StartMonth),
+            new SqlParameter("@StartYear",StartYear),
+            new SqlParameter("@EndMonth",EndMonth),
+            new SqlParameter("@EndYear",EndYear)
+        };
+        return int.Parse(db.ExecuteScalar(lst, "Purchase_Spoiled_Count"));
     }
 
-    public int GetSubsidizedCount()
+    public int GetSubsidizedCount(int StartMonth, int StartYear, int EndMonth, int EndYear)
     {
         Database db = new Database();
-        return int.Parse(db.ExecuteScalar(new List<SqlParameter>(), "Purchase_Subsidized_Count"));
+
+        List<SqlParameter> lst = new List<SqlParameter>
+        {
+            new SqlParameter("@StartMonth",StartMonth),
+            new SqlParameter("@StartYear",StartYear),
+            new SqlParameter("@EndMonth",EndMonth),
+            new SqlParameter("@EndYear",EndYear)
+        };
+        return int.Parse(db.ExecuteScalar(lst, "Purchase_Subsidized_Count"));
     }
 
     public int Finish(PurchaseModel mdl)

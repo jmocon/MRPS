@@ -104,6 +104,18 @@ public class Item
         return mdl;
     }
 
+    public int GetUnit_IdById(int id)
+    {
+        Database db = new Database();
+
+        List<SqlParameter> lst = new List<SqlParameter>
+        {
+            new SqlParameter("@Id",id)
+        };
+
+        return int.Parse(db.ExecuteScalar(lst, "Item_GetUnitById"));
+    }
+
     public ItemViewModel GetViewById(int id)
     {
         Database db = new Database();
@@ -140,10 +152,17 @@ public class Item
         return db.ExecuteReader(lst, "Item_GetForDatatable");
     }
 
-    public DataTable GetUsageForDatatable()
+    public DataTable GetUsageForDatatable(int StartMonth, int StartYear, int EndMonth, int EndYear)
     {
         Database db = new Database();
-        List<SqlParameter> lst = new List<SqlParameter>();
+
+        List<SqlParameter> lst = new List<SqlParameter>
+        {
+            new SqlParameter("@StartMonth",StartMonth),
+            new SqlParameter("@StartYear",StartYear),
+            new SqlParameter("@EndMonth",EndMonth),
+            new SqlParameter("@EndYear",EndYear)
+        };
         return db.ExecuteReader(lst, "Item_GetUsageForDatatable");
     }
 

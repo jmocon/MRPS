@@ -34,6 +34,12 @@ public partial class ajax_Item : System.Web.UI.Page
                 GetById(jsn.Id);
                 break;
 
+            case ("getunit_idbyid"):
+                json = clsUtil.GetJson(Request.InputStream);
+                jsn = JsonConvert.DeserializeObject<JsonId>(json);
+                GetUnit_IdById(jsn.Id);
+                break;
+
             case ("editSave"):
                 json = clsUtil.GetJson(Request.InputStream);
                 mdlC = JsonConvert.DeserializeObject<ItemCriticalModel>(json);
@@ -131,6 +137,17 @@ public partial class ajax_Item : System.Web.UI.Page
         res.Success = true;
         res.Message = "Successfully Retrieved Item";
         res.Model = mdl;
+
+        string output = JsonConvert.SerializeObject(res);
+        Response.Write(output);
+    }
+
+    private void GetUnit_IdById(int id)
+    {
+        ResponseModel res = new ResponseModel();
+        Item clsItem = new Item();
+        res.Success = true;
+        res.Message = clsItem.GetUnit_IdById(id).ToString();
 
         string output = JsonConvert.SerializeObject(res);
         Response.Write(output);

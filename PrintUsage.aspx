@@ -5,31 +5,42 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
 
   <title>Cafe by the Ruins</title>
 
   <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="vendor/fonts/Nunito.css" rel="stylesheet">
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+  <link href="vendor/fonts/Nunito.css" rel="stylesheet" />
 
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="css/sb-admin-2.min.css" rel="stylesheet" />
 </head>
 <body>
   <form id="form1" runat="server">
+    <div class="row">
+      <div class="col-12 text-center mt-4">
+        <img class="img" src="img/logoWord.png" style="width: 150px;" />
+        <p class="small m-0">+(02) 8 123 4567 | +639261234567</p>
+      </div>
+    </div>
     <div class="row pt-5 px-5">
       <div class="col-12">
-        <h1>Usage Report</h1>
-        </div>
+        <h1>Usage Report <small class="h6" id="dates" runat="server"></small></h1>
       </div>
+    </div>
     <div class="row py-2 px-5">
       <div class="col-12">
         <asp:Table ID="Table1" class="table table-bordered" runat="server"></asp:Table>
+      </div>
+    </div>
+    <div class="row py-2 px-5">
+      <div class="col-12">
+        <p class="small m-0 text-right" runat="server" id="lblwho"></p>
       </div>
     </div>
   </form>

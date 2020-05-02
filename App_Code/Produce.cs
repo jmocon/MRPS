@@ -13,7 +13,7 @@ public class Produce
     {
         Database db = new Database();
 
-        List<SqlParameter>  lst = new List<SqlParameter>
+        List<SqlParameter> lst = new List<SqlParameter>
             {
                 new SqlParameter("@Menu_Id",mdl.Menu_Id),
                 new SqlParameter("@Quantity",mdl.Quantity),
@@ -149,7 +149,7 @@ public class Produce
         return result;
     }
 
-    public string CheckCritical (int menu_id, int quantity)
+    public string CheckCritical(int menu_id, int quantity)
     {
         Database db = new Database();
         string result = "";
@@ -174,10 +174,18 @@ public class Produce
         return result;
     }
 
-    public DataTable GetBestSeller()
+    public DataTable GetBestSeller(int StartMonth, int StartYear, int EndMonth, int EndYear)
     {
         Database db = new Database();
-        return db.ExecuteReader(new List<SqlParameter>(), "Produce_BestSeller");
+
+        List<SqlParameter> lst = new List<SqlParameter>
+        {
+            new SqlParameter("@StartMonth",StartMonth),
+            new SqlParameter("@StartYear",StartYear),
+            new SqlParameter("@EndMonth",EndMonth),
+            new SqlParameter("@EndYear",EndYear)
+        };
+        return db.ExecuteReader(lst, "Produce_BestSeller");
     }
 
     public int GetLate(int month, int year)

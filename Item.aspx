@@ -23,7 +23,6 @@
           <thead>
             <tr>
               <th>Name</th>
-              <th>Price</th>
               <th>Category</th>
               <th>Quantity</th>
               <th>Unit</th>
@@ -33,7 +32,6 @@
           <tfoot>
             <tr>
               <th>Name</th>
-              <th>Price</th>
               <th>Category</th>
               <th>Quantity</th>
               <th>Unit</th>
@@ -41,14 +39,6 @@
             </tr>
           </tfoot>
           <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
           </tbody>
         </table>
       </div>
@@ -71,13 +61,13 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-6">
+            <div class="col-12">
               <label>Name</label>
               <input type="text" class="form-control" id="txt_Add_Name" placeholder="Name">
             </div>
-            <div class="col-6">
+            <div class="col-6 d-none">
               <label>Price</label>
-              <input type="number" class="form-control" id="txt_Add_Price" placeholder="Price">
+              <input type="number" class="form-control" id="txt_Add_Price" placeholder="Price" value="0">
             </div>
           </div>
           <div class="row mb-2">
@@ -104,7 +94,7 @@
             </div>
             <div class="col-6">
               <label>Unit</label>
-              <asp:DropDownList ID="sel_Add_C_Unit" class="form-control" runat="server"></asp:DropDownList>
+              <asp:DropDownList ID="sel_Add_C_Unit" class="form-control" runat="server" disabled="disabled"></asp:DropDownList>
             </div>
           </div>
         </div>
@@ -132,11 +122,11 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-6">
+            <div class="col-12">
               <label>Name</label>
               <div class="form-control" id="txt_View_Name">Name</div>
             </div>
-            <div class="col-6">
+            <div class="col-6 d-none">
               <label>Price</label>
               <div class="form-control" id="txt_View_Price">Price</div>
             </div>
@@ -202,13 +192,13 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-6">
+            <div class="col-12">
               <label>Name</label>
               <input type="text" class="form-control" id="txt_Edit_Name" placeholder="Name">
             </div>
-            <div class="col-6">
+            <div class="col-6 d-none">
               <label>Price</label>
-              <input type="number" class="form-control" id="txt_Edit_Price" placeholder="Price">
+              <input type="number" class="form-control" id="txt_Edit_Price" placeholder="Price" value="0">
             </div>
           </div>
           <div class="row mb-2">
@@ -269,11 +259,11 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-6">
+            <div class="col-12">
               <label>Name</label>
               <div class="form-control" id="txt_Delete_Name">Name</div>
             </div>
-            <div class="col-6">
+            <div class="col-6 d-none">
               <label>Price</label>
               <div class="form-control" id="txt_Delete_Price">Price</div>
             </div>

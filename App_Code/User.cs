@@ -115,6 +115,30 @@ public class User
 
         return false;
     }
+    
+    public UserModel GetByUsernamePassword(string uname, string pword)
+    {
+        Database db = new Database();
+
+        List<SqlParameter> lst = new List<SqlParameter>
+        {
+            new SqlParameter("@Username",uname),
+            new SqlParameter("@Password",pword)
+        };
+
+        DataTable dt = db.ExecuteReader(lst, "User_Login");
+        DataRow dr = dt.Rows[0];
+
+        UserModel mdl = new UserModel
+        {
+            Id = int.Parse(dr["Id"].ToString()),
+            Name = dr["Name"].ToString(),
+            Username = dr["Username"].ToString(),
+            Password = dr["Password"].ToString()
+        };
+
+        return mdl;
+    }
 
     public DataTable GetForDatatable()
     {

@@ -9,6 +9,8 @@ public partial class PrintLate : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        lblwho.InnerText = " (By: " + Session["name"].ToString() + ", " + DateTime.Now.ToString("MMMM d yyyy h:mm tt") + ")";
+
         lblCurrentDisplay.Text = DateTime.Now.ToString("yyyy");
         Produce cls = new Produce();
         int yy = int.Parse(DateTime.Now.ToString("yyyy"));

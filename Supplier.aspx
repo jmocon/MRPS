@@ -23,7 +23,7 @@
           <thead>
             <tr>
               <th>Name</th>
-              <th>Person Name</th>
+              <th>Contact Person</th>
               <th>Mobile Number</th>
               <th>Landline</th>
               <th>Email Address</th>
@@ -33,22 +33,14 @@
           <tfoot>
             <tr>
               <th>Name</th>
-              <th>PersonName</th>
-              <th>MobileNumber</th>
+              <th>Contact Person</th>
+              <th>Mobile Number</th>
               <th>Landline</th>
-              <th>EmailAddress</th>
+              <th>Email Address</th>
               <th>Action</th>
             </tr>
           </tfoot>
           <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
           </tbody>
         </table>
       </div>
@@ -76,8 +68,8 @@
               <input type="text" class="form-control" id="txt_Add_Name" placeholder="Name">
             </div>
             <div class="col-6">
-              <label>Person Name</label>
-              <input type="text" class="form-control" id="txt_Add_PersonName" placeholder="Person Name">
+              <label>Contact Person</label>
+              <input type="text" class="form-control" id="txt_Add_PersonName" placeholder="Contact Person">
             </div>
           </div>
           <div class="row mb-2">
@@ -130,8 +122,8 @@
               <div class="form-control" id="txt_View_Name">Name</div>
             </div>
             <div class="col-6">
-              <label>PersonName</label>
-              <div class="form-control" id="txt_View_PersonName">PersonName</div>
+              <label>Contact Person</label>
+              <div class="form-control" id="txt_View_PersonName">Contact Person</div>
             </div>
           </div>
           <div class="row mb-2">
@@ -183,8 +175,8 @@
               <input type="text" class="form-control" id="txt_Edit_Name" placeholder="Name">
             </div>
             <div class="col-6">
-              <label>Person Name</label>
-              <input type="text" class="form-control" id="txt_Edit_PersonName" placeholder="Person Name">
+              <label>Contact Person</label>
+              <input type="text" class="form-control" id="txt_Edit_PersonName" placeholder="Contact Person">
             </div>
           </div>
           <div class="row mb-2">
@@ -243,7 +235,7 @@
               <div class="form-control" id="txt_Delete_Name">Name</div>
             </div>
             <div class="col-6">
-              <label>Person Name</label>
+              <label>Contact Person</label>
               <div class="form-control" id="txt_Delete_PersonName">PersonName</div>
             </div>
           </div>
