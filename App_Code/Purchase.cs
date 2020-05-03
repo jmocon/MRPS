@@ -148,10 +148,21 @@ public class Purchase
         return int.Parse(db.ExecuteScalar(lst, "Purchase_Delete"));
     }
 
+    public List<PurchaseModel> GetByPurchaseCart_Id(int PurchaseCart_Id)
+    {
+        Database db = new Database();
+        List<SqlParameter> lst = new List<SqlParameter>
+        {
+            new SqlParameter("@PurchaseCart_Id",PurchaseCart_Id)
+        };
+        DataTable dt = db.ExecuteReader(lst, "Purchase_GetByPurchase_Id");
+        return ToList(dt);
+    }
+
     public int GetBuyCount(int StartMonth, int StartYear, int EndMonth, int EndYear)
     {
         Database db = new Database();
-        
+
         List<SqlParameter> lst = new List<SqlParameter>
         {
             new SqlParameter("@StartMonth",StartMonth),
@@ -220,6 +231,37 @@ public class Purchase
         cls.UpdateCritical();
 
         return int.Parse(db.ExecuteScalar(lst, "Purchase_Finish"));
+    }
+
+    public List<PurchaseModel> ToList(DataTable dt)
+    {
+        int s = 0;
+        List<PurchaseModel> lst = new List<PurchaseModel>();
+        foreach (DataRow dr in dt.Rows)
+        {
+            PurchaseModel mdl = new PurchaseModel
+            {
+                Id = int.Parse(dr["Id"].ToString()),
+                Item_Id = int.Parse(dr["Item_Id"].ToString()),
+                Type = int.Parse(dr["Type"].ToString()),
+                Price = decimal.Parse(dr["Price"].ToString()),
+                Supplier_Id = int.Parse(dr["Supplier_Id"].ToString()),
+                Quantity = decimal.Parse(dr["Quantity"].ToString()),
+                Unit_Id = int.Parse(dr["Unit_Id"].ToString()),
+                DatePurchased = DateTime.Parse(dr["DatePurchased"].ToString()),
+                X_DateCreated = DateTime.Parse(dr["X_DateCreated"].ToString()),
+                X_User_Id = (dr["X_User_Id"].ToString() == "") ? 0 : int.Parse(dr["X_User_Id"].ToString()),
+                X_Deleted = int.Parse(dr["X_Deleted"].ToString()),
+                Confirmed = int.Parse(dr["Confirmed"].ToString()),
+                PurchaseCart_Id = int.Parse(dr["PurchaseCart_Id"].ToString()),
+                R_Quantity = decimal.Parse(dr["R_Quantity"].ToString()),
+                R_Unit_Id = int.Parse(dr["R_Unit_Id"].ToString())
+            };
+
+            lst.Add(mdl);
+        }
+
+        return lst;
     }
 }
 

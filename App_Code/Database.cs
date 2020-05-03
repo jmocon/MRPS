@@ -46,7 +46,7 @@ public class Database
         return output;
     }
 
-    public int ExecuteNonQuery(List<ParameterModel> lst, string sp)
+    public int ExecuteNonQuery(List<SqlParameter> lst, string sp)
     {
         int rowsAffected = 0;
 
@@ -58,11 +58,7 @@ public class Database
                 con.Open();
             }
 
-            foreach (ParameterModel mdl in lst)
-            {
-                cmd.Parameters.Add(new SqlParameter("@" + mdl.Name, mdl.Value));
-            }
-
+            cmd.Parameters.AddRange(lst.ToArray());
             cmd.CommandType = CommandType.StoredProcedure;
             rowsAffected = cmd.ExecuteNonQuery();
         }

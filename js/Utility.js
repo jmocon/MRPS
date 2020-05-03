@@ -5,7 +5,7 @@
         var a = $.ajax({
             type: "POST",
             //url: "http://192.168.1.2/MRPS/ajax/" + data.url,
-            // url: "http://www.freelance.com/MRPS/ajax/" + data.url,
+            //url: "http://www.freelance.com/MRPS/ajax/" + data.url,
             url: "http://localhost/ajax/" + data.url,
             data: JSON.stringify(data.param),
             contentType: "application/json;charset=utf-8",

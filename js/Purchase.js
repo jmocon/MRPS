@@ -24,9 +24,12 @@ function InitializeDatatable() {
                     <button type="button" class="btn" onclick= "modalView(`+ data + `)" data-toggle="modal" data-target="#modalView">
                       <i class="fas fa-eye"></i>
                     </button>
-                    <button type="button" class="btn" onclick= "modalEdit(`+ data + `)" data-toggle="modal" data-target="#modalEdit">
-                      <i class="fas fa-pencil-alt"></i>
+                    <button type="button" class ="btn" onclick= "modalEdit(`+ data + `)" data-toggle="modal" data-target="#modalEdit">
+                      <i class ="fas fa-pencil-alt"></i>
                     </button>
+                    <a class ="btn" href="Deliveries.aspx?Id=`+row.PurchaseCart_Id+`" title="Delivery">
+                      <i class ="fas fa-boxes"></i>
+                    </a>
                     <button type="button" class="btn" onclick= "modalDelete(`+ data + `)" data-toggle="modal" data-target="#modalDelete">
                       <i class="fas fa-trash"></i>
                     </button>
