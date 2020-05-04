@@ -29,7 +29,7 @@
           <input type="text" class="form-control" id="txt_Purchase_Id" runat="server" disabled="disabled" />
         </div>
         <div class="col-4">
-          <label>Code</label>
+          <label>Reference No.</label>
           <input type="text" class="form-control" id="txt_Code" runat="server" />
         </div>
         <div class="col-4">

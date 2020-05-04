@@ -53,7 +53,7 @@ public partial class Deliveries : System.Web.UI.Page
     {
         tbl_Delivery.Rows.Clear();
         TableHeaderRow th = new TableHeaderRow();
-        th.Cells.Add(new TableHeaderCell { Text = "Code" });
+        th.Cells.Add(new TableHeaderCell { Text = "Reference No." });
         th.Cells.Add(new TableHeaderCell { Text = "Item" });
         th.Cells.Add(new TableHeaderCell { Text = "Date Received" });
         th.Cells.Add(new TableHeaderCell { Text = "Action" });
