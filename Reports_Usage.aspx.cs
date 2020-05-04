@@ -9,12 +9,12 @@ public partial class Reports_Usage : System.Web.UI.Page
 
     private void CheckInput()
     {
-        btnPrint.HRef = "PrintUsage.aspx?Start=" + txt_Start_Date.Text + "&End=" + txt_End_Date.Text;
         if (!IsPostBack)
         {
             txt_Start_Date.Text = DateTime.Now.ToString("yyyy-MM");
             txt_End_Date.Text = DateTime.Now.ToString("yyyy-MM");
         }
+        btnPrint.HRef = "PrintUsage.aspx?Start=" + txt_Start_Date.Text + "&End=" + txt_End_Date.Text;
         DateTime DateStart = DateTime.Parse(txt_Start_Date.Text);
         DateTime DateEnd = DateTime.Parse(txt_End_Date.Text);
 

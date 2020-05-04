@@ -25,7 +25,7 @@
     <div class="row">
       <div class="col-12 text-center mt-4">
         <img class="img" src="img/logoWord.png" style="width: 150px;" />
-        <p class="small m-0">+(02) 8 123 4567 | +639261234567</p>
+        <p class="small">0927 957 4172</p>
       </div>
     </div>
     <div class="row pt-5 px-5">
