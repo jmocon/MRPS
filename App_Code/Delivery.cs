@@ -40,6 +40,36 @@ public class Delivery
         return ToList(db.ExecuteReader(lst, "Delivery_GetCodeByPurchaseCart_Id"));
     }
 
+    public List<DeliveryModel> GetByCode(string code)
+    {
+        Database db = new Database();
+
+        List<SqlParameter> lst = new List<SqlParameter>
+        {
+            new SqlParameter("@Code",code)
+        };
+
+        return ToList(db.ExecuteReader(lst, "Delivery_GetByCode"));
+    }
+
+    public bool IsCodeExist(string code)
+    {
+        Database db = new Database();
+
+        List<SqlParameter> lst = new List<SqlParameter>
+        {
+            new SqlParameter("@Code",code)
+        };
+
+        DataTable dt = db.ExecuteReader(lst, "Delivery_GetByCode");
+        if (dt.Rows.Count > 0)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     public DataTable GetItemDetailByCode(string Code)
     {
         Database db = new Database();

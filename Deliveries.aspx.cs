@@ -116,34 +116,42 @@ public partial class Deliveries : System.Web.UI.Page
             Delivery clsDelivery = new Delivery();
             int itemId = 0;
 
-            foreach (TextBox item in lsttxt)
+            if (clsDelivery.IsCodeExist(txt_Code.Value))
             {
-                itemId = int.Parse(item.ID.Substring(8));
-                decimal quan = 0;
-                if (item.Text != "")
-                {
-                    quan = decimal.Parse(item.Text);
-                }
-                DeliveryModel mdlD = new DeliveryModel
-                {
-                    Code = txt_Code.Value,
-                    Item_Id = itemId,
-                    Quantity = quan,
-                    Unit_Id = clsItem.GetUnit_IdById(itemId),
-                    DateReceived = DateTime.Parse(txt_DateReceived.Value),
-                    PurchaseCart_Id = int.Parse(txt_Purchase_Id.Value)
-                };
-                clsDelivery.Add(mdlD);
-            }
+                modalAdd_notif.InnerHtml = " <div class=\"alert alert-danger\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>Delivery Code Already Exists!</div>";
 
-            modalAdd_notif.InnerHtml = " <div class=\"alert alert-success\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>Successfully Added New Delivery</div>";
-            PopulateDelivery(purchaseId);
-            txt_Code.Value = "";
-            foreach (TextBox item in lsttxt)
-            {
-                item.Text = "0";
             }
-            UpdateQuantity();
+            else
+            {
+                foreach (TextBox item in lsttxt)
+                {
+                    itemId = int.Parse(item.ID.Substring(8));
+                    decimal quan = 0;
+                    if (item.Text != "")
+                    {
+                        quan = decimal.Parse(item.Text);
+                    }
+                    DeliveryModel mdlD = new DeliveryModel
+                    {
+                        Code = txt_Code.Value,
+                        Item_Id = itemId,
+                        Quantity = quan,
+                        Unit_Id = clsItem.GetUnit_IdById(itemId),
+                        DateReceived = DateTime.Parse(txt_DateReceived.Value),
+                        PurchaseCart_Id = int.Parse(txt_Purchase_Id.Value)
+                    };
+                    clsDelivery.Add(mdlD);
+                }
+
+                modalAdd_notif.InnerHtml = " <div class=\"alert alert-success\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>Successfully Added New Delivery</div>";
+                PopulateDelivery(purchaseId);
+                txt_Code.Value = "";
+                foreach (TextBox item in lsttxt)
+                {
+                    item.Text = "0";
+                }
+                UpdateQuantity();
+            }
         }
     }
 
